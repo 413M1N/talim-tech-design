@@ -1,1294 +1,1130 @@
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---teal:#00BFA6;--teal2:#00D4B8;--teal3:#00967F;--tealbg:#001A17;--teallight:#E0FAF7;
---bg:#070D0C;--bg2:#0D1614;--bg3:#121F1D;--bg4:#182422;--bg5:#1E2D2A;
---border:#1E3330;--border2:#254340;
---text:#EEF7F5;--text2:#8FAAA7;--text3:#4A6B67;
---accent:#FFB84D;--accentbg:#2A1E00;
---green:#22C78A;--greenbg:#061A10;
---red:#FF5A5A;--redbg:#1A0606;
---r:8px;--r2:14px;--r3:20px;
-font-family:'Plus Jakarta Sans',sans-serif;
+--teal:#00BFA6;--teal2:#00D4B8;--teal3:#007A6B;--tealbg:rgba(0,191,166,.08);--tealbdr:rgba(0,191,166,.25);
+--bg:#FAFBFC;--bg2:#FFFFFF;--bg3:#F4F7F6;--bg4:#ECF2F1;
+--border:#E2EAE8;--border2:#C8D8D5;
+--dark:#0D1514;--dark2:#1A2624;
+--text:#0D1514;--text2:#4A6B67;--text3:#8AADA9;
+--red:#E53E3E;--redbg:#FEF2F2;--redbdr:#FCA5A5;
+--green:#16A34A;--greenbg:#F0FDF4;--greenbdr:#86EFAC;
+--amber:#D97706;--amberbg:#FFFBEB;--amberbdr:#FCD34D;
+--purple:#7C3AED;--purplebg:#F5F3FF;
+--r:10px;--r2:16px;--r3:24px;
+font-family:'Outfit',sans-serif;
 }
-body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:14px}
-h1,h2,h3,h4,.brand{font-family:'Bricolage Grotesque',sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+h1,h2,h3,h4,.brand{font-family:'Space Grotesk',sans-serif}
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-@keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,191,166,.3)}50%{box-shadow:0 0 40px rgba(0,191,166,.6)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes slideIn{from{transform:translateX(-8px);opacity:0}to{transform:translateX(0);opacity:1}}
 
-.anim{animation:fadeUp .5s ease both}
-.anim-1{animation-delay:.1s}.anim-2{animation-delay:.2s}.anim-3{animation-delay:.3s}
+.anim{animation:fadeIn .35s ease both}
 
-/* NAV */
-.topnav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:4px;padding:0 1rem;position:sticky;top:0;z-index:200;overflow-x:auto}
-.brand-area{display:flex;align-items:center;gap:.5rem;padding:.7rem .75rem .7rem 0;margin-right:.5rem;border-right:1px solid var(--border);flex-shrink:0}
-.brand-logo{width:30px;height:30px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000;font-family:'Bricolage Grotesque',sans-serif}
-.brand-name{font-size:13px;font-weight:700;color:var(--text);font-family:'Bricolage Grotesque',sans-serif;white-space:nowrap}
-.ntab{padding:.7rem .85rem;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;font-family:'Bricolage Grotesque',sans-serif}
-.ntab:hover{color:var(--text)}
-.ntab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.screen{display:none;min-height:100vh}.screen.show{display:block;animation:fadeIn .3s ease}
 
-/* PAGES */
-.page{display:none}.page.active{display:block}
+/* ===== TOP BAR ===== */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:56px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:.5rem}
+.logo-mark{width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;font-family:'Space Grotesk',sans-serif}
+.logo-name{font-size:15px;font-weight:700;color:var(--text);font-family:'Space Grotesk',sans-serif}
+.topbar-nav{display:flex;gap:4px;margin-left:auto;align-items:center}
+.tnav-btn{padding:.45rem .9rem;border-radius:var(--r);font-size:13px;font-weight:500;color:var(--text2);background:transparent;border:none;cursor:pointer;transition:all .15s;font-family:'Outfit',sans-serif}
+.tnav-btn:hover{background:var(--bg3);color:var(--text)}
+.tnav-btn.active{background:var(--tealbg);color:var(--teal)}
+.tnav-btn.primary{background:var(--teal);color:#fff;font-weight:600}
+.tnav-btn.primary:hover{background:var(--teal2)}
+.user-pill{display:flex;align-items:center;gap:.5rem;padding:.35rem .75rem;background:var(--bg3);border:1px solid var(--border);border-radius:999px;font-size:13px;font-weight:500;cursor:pointer}
+.avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
 
-/* ===================== LANDING ===================== */
-.land{max-width:100%}
-.hero-wrap{position:relative;overflow:hidden;padding:5rem 1.5rem 4rem;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,191,166,.12) 0%,transparent 70%)}
-.hero-wrap::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300BFA6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,191,166,.1);border:1px solid rgba(0,191,166,.3);border-radius:999px;padding:.3rem 1rem;font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1.5rem;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.05em;animation:glow 3s ease-in-out infinite}
-.hero h1{font-size:clamp(1.9rem,5vw,3.6rem);font-weight:800;line-height:1.08;margin-bottom:1.25rem;letter-spacing:-.02em}
-.hero h1 .hl{color:var(--teal)}
-.hero-sub{font-size:clamp(.95rem,2vw,1.15rem);color:var(--text2);max-width:580px;margin:0 auto 2rem;line-height:1.65;font-weight:400}
-.btn-row{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
-.btn-teal{background:var(--teal);color:#000;padding:.8rem 1.75rem;border-radius:var(--r);font-weight:700;font-size:14px;border:none;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .25s;letter-spacing:.01em}
-.btn-teal:hover{background:var(--teal2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,191,166,.4)}
-.btn-ghost{background:transparent;color:var(--teal);padding:.8rem 1.75rem;border-radius:var(--r);font-weight:700;font-size:14px;border:1px solid rgba(0,191,166,.4);cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .25s}
-.btn-ghost:hover{background:rgba(0,191,166,.08);border-color:var(--teal)}
-.btn-wa{background:#25D366;color:#fff;padding:.8rem 1.75rem;border-radius:var(--r);font-weight:700;font-size:14px;border:none;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
-.btn-wa:hover{background:#20BA58;transform:translateY(-2px)}
-.btn-outline-sm{background:transparent;color:var(--text2);padding:.55rem 1rem;border-radius:var(--r);font-weight:600;font-size:12px;border:1px solid var(--border2);cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .2s}
-.btn-outline-sm:hover{color:var(--text);border-color:var(--text2)}
+/* ===== BUTTONS ===== */
+.btn{padding:.65rem 1.4rem;border-radius:var(--r);font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:.5rem}
+.btn-teal{background:var(--teal);color:#fff}.btn-teal:hover{background:var(--teal2)}
+.btn-outline{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}.btn-outline:hover{background:var(--tealbg)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--bg3);color:var(--text)}
+.btn-wa{background:#25D366;color:#fff}.btn-wa:hover{background:#20BA58}
+.btn-danger{background:var(--redbg);color:var(--red);border:1px solid var(--redbdr)}.btn-danger:hover{background:#FEE2E2}
+.btn-sm{padding:.45rem 1rem;font-size:12px}
+.btn-full{width:100%;justify-content:center}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 
-.trust-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
-.trust-badge{display:flex;align-items:center;gap:.4rem;font-size:12px;color:var(--text2)}
-.trust-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+/* ===== INPUTS ===== */
+.field{margin-bottom:1.1rem}
+.label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:.4rem;display:block;text-transform:uppercase;letter-spacing:.04em}
+.inp{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:14px;color:var(--text);font-family:'Outfit',sans-serif;outline:none;transition:border .2s}
+.inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,191,166,.1)}
+.inp::placeholder{color:var(--text3)}
+.inp-err{border-color:var(--red) !important}
+.err-msg{font-size:11px;color:var(--red);margin-top:.3rem}
+.sel{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-size:14px;color:var(--text);font-family:'Outfit',sans-serif;outline:none;cursor:pointer;width:100%}
+.sel:focus{border-color:var(--teal)}
 
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;padding:1.5rem;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stat-b{text-align:center;padding:.75rem}
-.stat-b-n{font-size:1.8rem;font-weight:800;color:var(--teal);font-family:'Bricolage Grotesque',sans-serif;line-height:1}
-.stat-b-l{font-size:11px;color:var(--text2);margin-top:.25rem}
+/* ===== CARDS ===== */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem}
+.card-sm{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem}
 
-.section{padding:3rem 1.5rem;border-top:1px solid var(--border);max-width:1100px;margin:0 auto}
-.section-full{padding:3rem 1.5rem;border-top:1px solid var(--border)}
-.slabel{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.6rem}
-.stitle{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;line-height:1.2;margin-bottom:.6rem;letter-spacing:-.01em}
-.ssub{color:var(--text2);font-size:14px;line-height:1.65;font-weight:400}
+/* ===== AUTH SCREENS ===== */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:linear-gradient(135deg,#F0FAF8 0%,#FAFBFC 50%,#F0F4FF 100%)}
+.auth-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r3);padding:2.5rem;width:100%;max-width:420px;animation:fadeIn .4s ease}
+.auth-logo{text-align:center;margin-bottom:2rem}
+.auth-title{font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:.35rem}
+.auth-sub{font-size:13px;color:var(--text2);text-align:center;margin-bottom:2rem}
+.auth-divider{display:flex;align-items:center;gap:.75rem;margin:1.25rem 0;color:var(--text3);font-size:12px}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-footer{text-align:center;font-size:13px;color:var(--text2);margin-top:1.25rem}
+.auth-link{color:var(--teal);cursor:pointer;font-weight:600;text-decoration:none}
+.auth-link:hover{text-decoration:underline}
+.check-row{display:flex;align-items:center;gap:.5rem;font-size:13px;color:var(--text2);margin-bottom:1rem}
+.check-row input{accent-color:var(--teal);width:15px;height:15px}
 
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:1.75rem}
-.pcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;transition:border-color .2s}
-.pcard:hover{border-color:var(--border2)}
-.pcard-icon{font-size:22px;margin-bottom:.6rem}
-.pcard h4{font-size:13px;font-weight:700;margin-bottom:.35rem;font-family:'Bricolage Grotesque',sans-serif}
-.pcard p{font-size:12px;color:var(--text2);line-height:1.55}
+.alert{padding:.75rem 1rem;border-radius:var(--r);font-size:13px;font-weight:500;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.alert-err{background:var(--redbg);color:var(--red);border:1px solid var(--redbdr)}
+.alert-ok{background:var(--greenbg);color:var(--green);border:1px solid var(--greenbdr)}
+.alert-warn{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberbdr)}
 
-/* TOOLS GRID */
-.tools-grid-land{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.75rem;margin-top:1.75rem}
-.tcard-land{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;transition:all .2s;cursor:pointer}
-.tcard-land:hover{border-color:rgba(0,191,166,.4);transform:translateY(-2px);background:var(--bg3)}
-.tcard-land .tn{font-size:10px;font-weight:700;color:var(--teal);font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.05em;margin-bottom:.4rem}
-.tcard-land h4{font-size:13px;font-weight:700;margin-bottom:.3rem;font-family:'Bricolage Grotesque',sans-serif}
-.tcard-land p{font-size:11px;color:var(--text2);line-height:1.45}
-.tcard-land .ticon{font-size:22px;margin-bottom:.6rem}
-
-/* SERVICE CARDS */
-.service-box{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r2);padding:2rem;margin-top:1.75rem;position:relative;overflow:hidden}
-.service-box::before{content:'';position:absolute;top:-50px;right:-50px;width:150px;height:150px;background:radial-gradient(circle,rgba(0,191,166,.15),transparent 70%);pointer-events:none}
-.service-tag{display:inline-flex;background:rgba(0,191,166,.1);border:1px solid rgba(0,191,166,.25);color:var(--teal);font-size:10px;font-weight:700;padding:.25rem .75rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.06em;margin-bottom:.75rem}
-.service-items{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
-.service-item{background:var(--bg4);border:1px solid var(--border);border-radius:999px;padding:.3rem .85rem;font-size:12px;color:var(--text2)}
-.service-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}
-
-/* PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-top:1.75rem}
-.price-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem;transition:all .2s;position:relative}
-.price-card.hot{border-color:var(--teal);background:linear-gradient(135deg,rgba(0,191,166,.08),var(--bg2));animation:glow 3s ease-in-out infinite}
-.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--teal);color:#000;font-size:10px;font-weight:700;padding:.2rem .8rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;white-space:nowrap}
-.ptier{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.6rem}
-.pamount{font-size:2rem;font-weight:800;color:var(--text);font-family:'Bricolage Grotesque',sans-serif;line-height:1}
-.pamount small{font-size:12px;font-weight:400;color:var(--text2)}
-.pnote{font-size:11px;color:var(--teal);margin:.5rem 0 1rem;font-weight:600}
-.plist{list-style:none;font-size:12px;color:var(--text2)}
-.plist li{padding:.28rem 0;display:flex;align-items:flex-start;gap:.5rem;line-height:1.4}
-.plist li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:.4rem}
-.plist li.good{color:var(--text)}
-.pbtn{width:100%;margin-top:1.25rem;padding:.7rem;border-radius:var(--r);font-size:12px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text);transition:all .2s}
-.price-card.hot .pbtn{background:var(--teal);color:#000;border-color:var(--teal)}
-.pbtn:hover{border-color:var(--teal);color:var(--teal)}
-.price-card.hot .pbtn:hover{background:var(--teal2)}
-
-/* TESTIMONIALS */
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem;margin-top:1.75rem}
-.test-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
-.test-stars{color:var(--accent);font-size:13px;margin-bottom:.6rem}
-.test-text{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:.75rem;font-style:italic}
-.test-author{display:flex;align-items:center;gap:.6rem}
-.test-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;font-family:'Bricolage Grotesque',sans-serif;flex-shrink:0}
-.test-name{font-size:12px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif}
-.test-biz{font-size:11px;color:var(--text3)}
-
-/* FAQ */
-.faq-item{border-bottom:1px solid var(--border);padding:1rem 0;cursor:pointer}
-.faq-q{font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:'Bricolage Grotesque',sans-serif}
-.faq-a{font-size:12px;color:var(--text2);line-height:1.65;margin-top:.6rem;display:none}
-.faq-item.open .faq-a{display:block}
-.faq-plus{font-size:18px;color:var(--text3);transition:transform .2s;flex-shrink:0}
-.faq-item.open .faq-plus{transform:rotate(45deg);color:var(--teal)}
-
-/* GMB SECTION */
-.gmb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-top:1.75rem}
-.gmb-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1rem;text-align:center}
-.gmb-icon{font-size:24px;margin-bottom:.5rem}
-.gmb-item h4{font-size:12px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.2rem}
-.gmb-item p{font-size:11px;color:var(--text2)}
-
-/* WEBSITE SECTION */
-.quote-form{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem;margin-top:1.75rem;max-width:600px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.f-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:.65rem .9rem;font-size:13px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border .2s}
-.f-input:focus{border-color:var(--teal)}
-.f-input::placeholder{color:var(--text3)}
-.f-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:.35rem;display:block;font-family:'Bricolage Grotesque',sans-serif}
-.form-full{grid-column:1/-1}
-
-/* CTA FOOTER */
-.cta-wrap{background:linear-gradient(135deg,rgba(0,191,166,.15),rgba(0,191,166,.05));border-top:1px solid rgba(0,191,166,.2);border-bottom:1px solid rgba(0,191,166,.2);padding:3rem 1.5rem;text-align:center}
-
-/* FLOATING BUTTON */
-.float-btn{position:fixed;bottom:1.5rem;right:1.5rem;z-index:1000;background:var(--teal);color:#000;border:none;cursor:pointer;border-radius:999px;padding:.7rem 1.2rem;font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 24px rgba(0,191,166,.5);animation:floatBtn 3s ease-in-out infinite;transition:all .2s}
-.float-btn:hover{background:var(--teal2);transform:translateY(-3px) scale(1.05)}
-
-/* ===================== DASHBOARD ===================== */
-.dash-wrap{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 44px)}
-.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:1rem .75rem;display:flex;flex-direction:column}
-.sb-section{margin-bottom:1.25rem}
-.sb-label{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;font-family:'Bricolage Grotesque',sans-serif;padding:.4rem .6rem;margin-bottom:.15rem}
-.sb-item{display:flex;align-items:center;gap:.6rem;padding:.55rem .6rem;border-radius:var(--r);font-size:12px;color:var(--text2);cursor:pointer;transition:all .15s;margin-bottom:1px}
+/* ===== MAIN LAYOUT ===== */
+.main-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:1.25rem .85rem;display:flex;flex-direction:column;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sb-sec{margin-bottom:1.5rem}
+.sb-lbl{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.3rem .6rem;margin-bottom:.25rem;font-family:'Space Grotesk',sans-serif}
+.sb-item{display:flex;align-items:center;gap:.6rem;padding:.6rem .7rem;border-radius:var(--r);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;margin-bottom:2px}
 .sb-item:hover{background:var(--bg3);color:var(--text)}
-.sb-item.active{background:rgba(0,191,166,.12);color:var(--teal)}
-.sb-icon{font-size:14px;width:18px;text-align:center}
-.sb-badge{margin-left:auto;background:var(--teal);color:#000;font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif}
-.usage-box{margin-top:auto;background:rgba(0,191,166,.06);border:1px solid rgba(0,191,166,.2);border-radius:var(--r);padding:.85rem}
-.usage-bar-bg{background:var(--bg4);border-radius:999px;height:5px;overflow:hidden;margin:.4rem 0}
-.usage-bar-fill{height:100%;background:var(--teal);border-radius:999px}
-.usage-txt{font-size:10px;color:var(--text2);display:flex;justify-content:space-between}
-.plan-pill{display:inline-flex;background:rgba(0,191,166,.1);border:1px solid rgba(0,191,166,.25);color:var(--teal);font-size:9px;font-weight:700;padding:.15rem .6rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.5rem}
+.sb-item.active{background:var(--tealbg);color:var(--teal);font-weight:600}
+.sb-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.sb-badge{margin-left:auto;background:var(--teal);color:#fff;font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px}
+.sb-badge-warn{background:var(--amber);color:#fff}
+.plan-box{margin-top:auto;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:1rem}
+.plan-tier{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem}
+.prog-bg{background:var(--bg4);border-radius:999px;height:5px;overflow:hidden;margin:.4rem 0}
+.prog-fill{height:100%;border-radius:999px;background:var(--teal);transition:width .4s}
+.prog-txt{font-size:11px;color:var(--text2);display:flex;justify-content:space-between}
 
-.dash-main{padding:1.25rem;overflow-y:auto}
-.dpanel{display:none}.dpanel.active{display:block;animation:fadeUp .3s ease}
-.dtitle{font-size:1.2rem;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.25rem}
-.dsub{font-size:12px;color:var(--text2);margin-bottom:1.25rem}
+.main-content{padding:2rem;overflow-y:auto}
+.panel{display:none}.panel.show{display:block;animation:fadeIn .3s ease}
+.page-title{font-size:1.3rem;font-weight:700;margin-bottom:.25rem;font-family:'Space Grotesk',sans-serif}
+.page-sub{font-size:13px;color:var(--text2);margin-bottom:1.75rem}
 
-.metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1.25rem}
-.metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:.9rem}
-.metric-l{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.35rem}
-.metric-v{font-size:1.5rem;font-weight:700;color:var(--text);font-family:'Bricolage Grotesque',sans-serif}
-.metric-ch{font-size:10px;margin-top:.2rem}
+/* ===== METRICS ===== */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-bottom:1.75rem}
+.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem}
+.metric-l{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.metric-v{font-size:1.75rem;font-weight:700;color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1}
+.metric-ch{font-size:11px;margin-top:.3rem;font-weight:500}
 .metric-ch.up{color:var(--green)}.metric-ch.dn{color:var(--red)}
 
-.tools-grid-dash{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
-.tcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1rem;cursor:pointer;transition:all .2s;position:relative}
-.tcard:hover{border-color:var(--border2);transform:translateY(-1px)}
-.tcard.sel{border-color:var(--teal);background:rgba(0,191,166,.06)}
-.tcard-e{font-size:20px;margin-bottom:.5rem}
-.tcard h4{font-size:12px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.2rem}
-.tcard p{font-size:10px;color:var(--text2);line-height:1.4}
-.pro-badge{position:absolute;top:.6rem;right:.6rem;background:rgba(155,127,244,.2);color:#9B7FF4;font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif}
-.new-badge{position:absolute;top:.6rem;right:.6rem;background:rgba(0,191,166,.15);color:var(--teal);font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif}
+/* ===== TOOLS ===== */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.65rem;margin-bottom:1.25rem}
+.tool-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r2);padding:1.1rem;cursor:pointer;transition:all .2s;position:relative}
+.tool-card:hover{border-color:var(--teal);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,191,166,.12)}
+.tool-card.sel{border-color:var(--teal);background:var(--tealbg)}
+.tool-e{font-size:22px;margin-bottom:.5rem}
+.tool-card h4{font-size:12px;font-weight:700;margin-bottom:.2rem;font-family:'Space Grotesk',sans-serif}
+.tool-card p{font-size:11px;color:var(--text2);line-height:1.4}
+.tool-new{position:absolute;top:.6rem;right:.6rem;background:var(--teal);color:#fff;font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px}
+.tool-lock{position:absolute;top:.6rem;right:.6rem;background:var(--purplebg);color:var(--purple);font-size:9px;font-weight:700;padding:.1rem .4rem;border-radius:999px}
 
-.gen-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
-.gp-title{font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-.inp-group{margin-bottom:.85rem}
-.inp-lbl{font-size:10px;font-weight:700;color:var(--text2);margin-bottom:.35rem;display:block;font-family:'Bricolage Grotesque',sans-serif;text-transform:uppercase;letter-spacing:.06em}
-.dash-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:.6rem .8rem;font-size:13px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border .2s}
-.dash-inp:focus{border-color:var(--teal)}
-.dash-inp::placeholder{color:var(--text3)}
-.dash-sel{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:.6rem .8rem;font-size:13px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;outline:none}
-.tone-row{display:flex;gap:.4rem;flex-wrap:wrap}
-.tchip{padding:.3rem .75rem;border-radius:999px;font-size:11px;font-weight:600;border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Bricolage Grotesque',sans-serif}
-.tchip.active{background:rgba(0,191,166,.12);border-color:rgba(0,191,166,.4);color:var(--teal)}
-.lang-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.gen-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem}
+.gen-title{font-size:14px;font-weight:700;margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem;font-family:'Space Grotesk',sans-serif}
+.chip-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{padding:.3rem .8rem;border-radius:999px;font-size:12px;font-weight:600;border:1.5px solid var(--border);color:var(--text2);cursor:pointer;transition:all .15s}
+.chip.on{background:var(--tealbg);border-color:var(--teal);color:var(--teal)}
+.output-area{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;margin-top:.85rem;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;min-height:80px;display:none}
+.output-area.vis{display:block;animation:fadeIn .3s ease}
+.out-row{display:flex;gap:.5rem;margin-top:.65rem;align-items:center}
+.spin-sm{width:13px;height:13px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:none;animation:spin .6s linear infinite}
 
-.gen-btn{background:var(--teal);color:#000;padding:.7rem 1.5rem;border-radius:var(--r);font-weight:700;font-size:13px;border:none;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;transition:all .2s;display:flex;align-items:center;gap:.5rem}
-.gen-btn:hover{background:var(--teal2);box-shadow:0 4px 16px rgba(0,191,166,.4)}
-.gen-btn:disabled{opacity:.5;cursor:not-allowed}
-.spinner-sm{width:12px;height:12px;border:2px solid #000;border-top-color:transparent;border-radius:50%;display:none}
-.gen-btn.loading .spinner-sm{display:block;animation:spin .6s linear infinite}
-
-.output-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;margin-top:.85rem;font-size:13px;line-height:1.75;color:var(--text);white-space:pre-wrap;display:none;min-height:80px}
-.output-box.vis{display:block;animation:fadeUp .3s ease}
-.out-actions{display:flex;gap:.5rem;margin-top:.6rem;align-items:center}
-.btn-sm-act{padding:.4rem .8rem;border-radius:var(--r);font-size:11px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;cursor:pointer;transition:all .15s;border:1px solid var(--border);background:transparent;color:var(--text2)}
-.btn-sm-act:hover{color:var(--text);border-color:var(--text2)}
-.btn-sm-act.teal{border-color:rgba(0,191,166,.4);color:var(--teal)}
-.copied{font-size:10px;color:var(--teal);display:none;align-items:center;gap:.25rem}
-
-/* HISTORY */
+/* ===== HISTORY ===== */
 .hist-list{display:flex;flex-direction:column;gap:.6rem}
-.hist-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem;display:flex;gap:.85rem;align-items:flex-start}
-.hist-e{font-size:18px;flex-shrink:0;margin-top:.1rem}
-.hist-meta{font-size:10px;color:var(--text3);margin-bottom:.3rem;font-family:'Bricolage Grotesque',sans-serif}
+.hist-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem;display:flex;gap:.85rem;align-items:flex-start;transition:border-color .15s}
+.hist-item:hover{border-color:var(--border2)}
+.hist-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.hist-meta{font-size:11px;color:var(--text3);margin-bottom:.3rem;font-weight:500}
 .hist-txt{font-size:12px;line-height:1.6;color:var(--text2)}
-.hist-acts{margin-left:auto;display:flex;gap:.4rem;flex-shrink:0}
+.hist-acts{margin-left:auto;display:flex;gap:.35rem;flex-shrink:0}
 
-/* BILLING */
-.bill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin-bottom:1.5rem}
-.bill-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
-.bill-card.cur{border-color:var(--teal)}
-.bill-tier{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.5rem}
-.bill-price{font-size:1.35rem;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.25rem}
-.bill-note{font-size:10px;color:var(--teal);margin-bottom:.75rem;font-weight:600}
-.bill-btn{width:100%;margin-top:1rem;padding:.55rem;border-radius:var(--r);font-size:11px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text);transition:all .2s}
-.bill-card.cur .bill-btn{background:rgba(0,191,166,.1);border-color:rgba(0,191,166,.3);color:var(--teal)}
-.bill-btn:hover{border-color:var(--teal);color:var(--teal)}
+/* ===== SUBSCRIPTION TIERS ===== */
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.75rem}
+.tier-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r2);padding:1.35rem;position:relative;transition:all .2s}
+.tier-card.cur{border-color:var(--teal);background:var(--tealbg)}
+.tier-card.hot{border-color:var(--teal)}
+.tier-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:.2rem .75rem;border-radius:999px;white-space:nowrap}
+.tier-name{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+.tier-price{font-size:1.5rem;font-weight:700;color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1}
+.tier-price small{font-size:12px;font-weight:400;color:var(--text2)}
+.tier-note{font-size:11px;color:var(--teal);font-weight:600;margin:.4rem 0 .85rem}
+.tier-list{list-style:none;font-size:12px;color:var(--text2)}
+.tier-list li{padding:.25rem 0;display:flex;align-items:flex-start;gap:.4rem;line-height:1.4}
+.tier-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:.45rem}
+.tier-list li.good{color:var(--text)}
+.tier-btn{width:100%;margin-top:1rem;padding:.6rem;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--text);transition:all .2s;font-family:'Outfit',sans-serif}
+.tier-card.cur .tier-btn{background:var(--tealbg);border-color:var(--teal);color:var(--teal)}
+.tier-card.hot .tier-btn{background:var(--teal);border-color:var(--teal);color:#fff}
+.tier-btn:hover{border-color:var(--teal);color:var(--teal)}
+.tier-card.hot .tier-btn:hover{background:var(--teal2)}
 
-/* MPESA MODAL */
-.mpesa-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
-.mpesa-overlay.show{display:flex}
-.mpesa-modal{background:var(--bg2);border:1px solid rgba(0,191,166,.3);border-radius:var(--r2);padding:2rem;max-width:400px;width:100%;animation:fadeUp .3s ease}
-.mpesa-logo-tag{display:inline-flex;align-items:center;gap:.5rem;background:#005F32;color:#fff;padding:.35rem .9rem;border-radius:999px;font-size:12px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:1rem}
-.mpesa-step{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem;font-size:12px;color:var(--text2);line-height:1.6}
-.mpesa-num{width:20px;height:20px;border-radius:50%;background:rgba(0,191,166,.15);border:1px solid rgba(0,191,166,.3);color:var(--teal);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bricolage Grotesque',sans-serif}
-.pay-status{padding:.85rem;border-radius:var(--r);text-align:center;font-size:13px;font-weight:600;margin-top:.75rem;font-family:'Bricolage Grotesque',sans-serif;display:none}
-.pay-status.sending{display:block;background:rgba(0,191,166,.08);border:1px solid rgba(0,191,166,.2);color:var(--teal);animation:pulse 1.5s infinite}
-.pay-status.success{display:block;background:rgba(34,199,138,.08);border:1px solid rgba(34,199,138,.25);color:var(--green)}
-.pay-status.fail{display:block;background:rgba(255,90,90,.08);border:1px solid rgba(255,90,90,.2);color:var(--red)}
+/* ===== ADMIN ===== */
+.admin-table{width:100%;border-collapse:collapse;font-size:13px}
+.admin-table th{text-align:left;padding:.65rem 1rem;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif}
+.admin-table td{padding:.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:var(--bg3)}
+.pill{display:inline-flex;padding:.18rem .6rem;border-radius:999px;font-size:10px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.pill-g{background:var(--greenbg);color:var(--green);border:1px solid var(--greenbdr)}
+.pill-a{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberbdr)}
+.pill-t{background:var(--tealbg);color:var(--teal);border:1px solid var(--tealbdr)}
+.pill-r{background:var(--redbg);color:var(--red);border:1px solid var(--redbdr)}
+.pill-p{background:var(--purplebg);color:var(--purple);border:1px solid rgba(124,58,237,.2)}
 
-/* ADMIN */
-.admin-table{width:100%;border-collapse:collapse;font-size:12px}
-.admin-table th{text-align:left;padding:.65rem .9rem;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-family:'Bricolage Grotesque',sans-serif;border-bottom:1px solid var(--border)}
-.admin-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border);color:var(--text2)}
-.pill{display:inline-flex;padding:.18rem .55rem;border-radius:999px;font-size:10px;font-weight:600;font-family:'Bricolage Grotesque',sans-serif}
-.pill.g{background:var(--greenbg);color:var(--green)}
-.pill.a{background:var(--accentbg);color:var(--accent)}
-.pill.t{background:rgba(0,191,166,.1);color:var(--teal)}
-.pill.r{background:var(--redbg);color:var(--red)}
-.pill.p{background:rgba(155,127,244,.1);color:#9B7FF4}
+/* ===== MPESA MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,21,20,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(2px)}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r3);padding:2rem;max-width:420px;width:100%;animation:fadeIn .3s ease;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:1.1rem;font-weight:700;margin-bottom:.25rem;font-family:'Space Grotesk',sans-serif}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem}
+.mpesa-badge{display:inline-flex;align-items:center;gap:.4rem;background:#005F32;color:#fff;font-size:12px;font-weight:700;padding:.3rem .85rem;border-radius:999px;margin-bottom:1rem}
+.mpesa-steps{background:var(--bg3);border-radius:var(--r);padding:1rem;margin-bottom:1.1rem}
+.mpesa-step{display:flex;gap:.65rem;align-items:flex-start;font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:.6rem}
+.mpesa-step:last-child{margin-bottom:0}
+.step-num{width:18px;height:18px;border-radius:50%;background:var(--teal);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.pay-status{padding:.85rem;border-radius:var(--r);text-align:center;font-size:13px;font-weight:600;margin-top:.75rem;display:none}
+.pay-pending{display:flex;animation:pulse 1.2s infinite;background:var(--amberbg);border:1px solid var(--amberbdr);color:var(--amber)}
+.pay-ok{display:flex;background:var(--greenbg);border:1px solid var(--greenbdr);color:var(--green)}
+.pay-fail{display:flex;background:var(--redbg);border:1px solid var(--redbdr);color:var(--red)}
+.pay-status{justify-content:center;align-items:center;gap:.5rem}
 
-/* SETTINGS */
-.sett-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;margin-bottom:.75rem}
-.sett-section h4{font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.85rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
-.sett-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid var(--border)}
+/* ===== SETTINGS ===== */
+.sett-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;margin-bottom:.85rem}
+.sett-block h4{font-size:14px;font-weight:700;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif}
+.sett-row{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--border)}
 .sett-row:last-child{border-bottom:none}
-.sett-lbl{font-size:12px;font-weight:500}
-.sett-sub{font-size:10px;color:var(--text2);margin-top:.1rem}
-.toggle{width:38px;height:20px;border-radius:999px;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
-.toggle.on{background:var(--teal)}
-.toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#000;top:2px;left:2px;transition:left .2s}
+.sett-lbl{font-size:13px;font-weight:500}
+.sett-sub{font-size:11px;color:var(--text3);margin-top:.1rem}
+.toggle{width:40px;height:22px;border-radius:999px;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--teal);border-color:var(--teal)}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .toggle.on::after{left:20px}
 
-/* RESPONSIVE */
-@media(max-width:640px){
-  .dash-wrap{grid-template-columns:1fr}
+/* ===== LANDING ===== */
+.land-hero{text-align:center;padding:4rem 1.5rem 3.5rem;background:linear-gradient(160deg,#F0FAF8 0%,#FFFFFF 60%)}
+.land-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--tealbg);border:1px solid var(--tealbdr);border-radius:999px;padding:.3rem 1rem;font-size:11px;color:var(--teal);font-weight:700;margin-bottom:1.25rem;letter-spacing:.04em}
+.land-h1{font-size:clamp(1.8rem,5vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:1rem;letter-spacing:-.02em;font-family:'Space Grotesk',sans-serif}
+.land-h1 em{color:var(--teal);font-style:normal}
+.land-sub{font-size:clamp(.95rem,2vw,1.1rem);color:var(--text2);max-width:520px;margin:0 auto 2rem;line-height:1.7;font-weight:400}
+.land-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:.4rem;font-size:12px;color:var(--text2);font-weight:500}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.land-section{padding:3rem 1.5rem;border-top:1px solid var(--border)}
+.land-inner{max-width:1000px;margin:0 auto}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:.5rem}
+.sec-h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:700;line-height:1.2;margin-bottom:.5rem;font-family:'Space Grotesk',sans-serif}
+.sec-sub{color:var(--text2);font-size:14px;line-height:1.65}
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.85rem;margin-top:1.75rem}
+.benefit-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;transition:all .2s}
+.benefit-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.benefit-icon{font-size:24px;margin-bottom:.65rem}
+.benefit-card h4{font-size:13px;font-weight:700;margin-bottom:.3rem;font-family:'Space Grotesk',sans-serif}
+.benefit-card p{font-size:12px;color:var(--text2);line-height:1.55}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.85rem;margin-top:1.75rem}
+.test-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem}
+.test-stars{color:#F59E0B;font-size:14px;margin-bottom:.6rem}
+.test-text{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:.75rem;font-style:italic}
+.test-auth{display:flex;align-items:center;gap:.6rem}
+.test-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.test-name{font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.test-biz{font-size:11px;color:var(--text3)}
+.cta-band{background:linear-gradient(135deg,#E6FAF7,#F0F4FF);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 1.5rem;text-align:center}
+.land-footer{padding:2rem 1.5rem;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--text3)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+  .main-layout{grid-template-columns:1fr}
   .sidebar{display:none}
-  .form-grid{grid-template-columns:1fr}
-  .topnav{padding:0 .5rem}
-  .ntab{padding:.7rem .6rem;font-size:11px}
+  .main-content{padding:1rem}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .tools-grid{grid-template-columns:1fr 1fr}
+  .tier-grid{grid-template-columns:1fr}
+  .land-h1{font-size:1.8rem}
 }
 </style>
 
-<div style="position:relative">
-
-<!-- FLOATING BUTTON -->
-<a href="tel:0725028310" style="text-decoration:none">
-<button class="float-btn" onclick="event.preventDefault();showMpesa('call')">📞 0725 028 310</button>
-</a>
-
-<!-- M-PESA OVERLAY -->
-<div class="mpesa-overlay" id="mpesa-overlay" onclick="if(event.target===this)closeMpesa()">
-  <div class="mpesa-modal">
-    <div class="mpesa-logo-tag">🟢 M-PESA Payment</div>
-    <div style="font-size:16px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.25rem" id="mpesa-title">Pay via M-Pesa STK Push</div>
-    <div style="font-size:12px;color:var(--text2);margin-bottom:1.25rem" id="mpesa-desc">Plan: Starter — KSh 199 one-time</div>
-    <div class="mpesa-step"><div class="mpesa-num">1</div><div>Enter your M-Pesa number below — an STK push will be sent to your phone instantly.</div></div>
-    <div class="mpesa-step"><div class="mpesa-num">2</div><div>Enter your M-Pesa PIN when prompted on your phone.</div></div>
-    <div class="mpesa-step"><div class="mpesa-num">3</div><div>Your account upgrades automatically within 30 seconds.</div></div>
-    <div style="margin-top:1rem">
-      <label class="inp-lbl">M-Pesa Phone Number</label>
-      <input class="dash-inp" id="mpesa-phone" type="tel" placeholder="e.g. 0712345678 or 0725028310" style="margin-bottom:.6rem">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
-        <button class="gen-btn" style="justify-content:center" id="mpesa-pay-btn" onclick="processMpesa()"><span class="spinner-sm" id="mpesa-spin"></span>Send STK Push</button>
-        <button class="btn-sm-act" onclick="closeMpesa()">Cancel</button>
-      </div>
-      <div class="pay-status" id="pay-status"></div>
-      <div style="text-align:center;margin-top:.75rem;font-size:10px;color:var(--text3)">Paybill: 247247 · Account: 0710187261915 · Merchant: Alex Mwenda</div>
-    </div>
-  </div>
-</div>
-
-<!-- NAV TABS -->
-<div class="topnav">
-  <div class="brand-area"><div class="brand-logo">T</div><span class="brand-name">Talim AI</span></div>
-  <div class="ntab active" onclick="showPage('landing')">🏠 Home</div>
-  <div class="ntab" onclick="showPage('dashboard')">⚡ Dashboard</div>
-  <div class="ntab" onclick="showPage('services')">🛠 Services</div>
-  <div class="ntab" onclick="showPage('admin')">👑 Admin</div>
-</div>
-
-<!-- ==================== LANDING PAGE ==================== -->
-<div id="page-landing" class="page active land">
-
-  <div class="hero-wrap">
-    <div class="hero anim">
-      <div class="hero-badge">✦ #1 AI Marketing Tool for Kenyan Businesses</div>
-      <h1>Generate <span class="hl">Marketing Content</span><br>That Sells — in 5 Seconds</h1>
-      <p class="hero-sub">WhatsApp messages, Instagram captions, Facebook ads, GMB posts & more. Built for Nairobi sellers, mitumba shops, electronics stores & every Kenyan SME.</p>
-      <div class="btn-row">
-        <button class="btn-teal" onclick="showPage('dashboard');showDash('tools')">⚡ Start Generating Now</button>
-        <button class="btn-wa" onclick="openWA()">💬 WhatsApp Us</button>
-      </div>
-      <div class="trust-badges anim anim-2">
-        <div class="trust-badge"><div class="dot"></div>M-Pesa Accepted</div>
-        <div class="trust-badge"><div class="dot"></div>Works in Kiswahili & English</div>
-        <div class="trust-badge"><div class="dot"></div>No Monthly Lock-in</div>
-        <div class="trust-badge"><div class="dot"></div>500+ Kenyan Businesses</div>
-        <div class="trust-badge"><div class="dot"></div>Cancel Anytime</div>
-      </div>
+<div id="scr-landing" class="screen show">
+  <div class="topbar">
+    <div class="logo"><div class="logo-mark">T</div><span class="logo-name">Talim AI</span></div>
+    <div class="topbar-nav">
+      <button class="tnav-btn" onclick="goTo('scr-landing')">Home</button>
+      <button class="tnav-btn" onclick="scrollTo2('pricing')">Pricing</button>
+      <button class="tnav-btn" onclick="goTo('scr-login')">Log in</button>
+      <button class="tnav-btn primary" onclick="goTo('scr-signup')">Sign up free</button>
     </div>
   </div>
 
-  <div class="stats-bar">
-    <div class="stat-b"><div class="stat-b-n">10</div><div class="stat-b-l">AI Marketing Tools</div></div>
-    <div class="stat-b"><div class="stat-b-n">500+</div><div class="stat-b-l">Kenyan Businesses</div></div>
-    <div class="stat-b"><div class="stat-b-n">10s</div><div class="stat-b-l">Generation Time</div></div>
-    <div class="stat-b"><div class="stat-b-n">KSh 199</div><div class="stat-b-l">One-Time Starter</div></div>
-  </div>
-
-  <!-- PROBLEM -->
-  <div style="max-width:1100px;margin:0 auto">
-  <div class="section">
-    <div class="slabel">The Problem</div>
-    <div class="stitle">Every day without good marketing<br>is a day losing customers</div>
-    <div class="problem-grid">
-      <div class="pcard"><div class="pcard-icon">😩</div><h4>No time to write ads</h4><p>You're running the business — who has time to write 5 captions daily?</p></div>
-      <div class="pcard"><div class="pcard-icon">📉</div><h4>Inconsistent posting</h4><p>You post when inspired. Customers forget you exist by next week.</p></div>
-      <div class="pcard"><div class="pcard-icon">💸</div><h4>Agencies are too expensive</h4><p>KSh 10,000/month for social media? Not realistic for most sellers.</p></div>
-      <div class="pcard"><div class="pcard-icon">😰</div><h4>Don't know what to write</h4><p>Blank screen syndrome. Great product, but can't find the words to sell it.</p></div>
+  <div class="land-hero">
+    <div class="land-badge">Built for Kenyan Businesses</div>
+    <h1 class="land-h1">AI Marketing Content<br>That <em>Actually Sells</em></h1>
+    <p class="land-sub">Generate WhatsApp messages, Instagram captions, Facebook ads, and Google My Business posts in 10 seconds. Made for Kenyan SMEs.</p>
+    <div class="land-btns">
+      <button class="btn btn-teal" onclick="goTo('scr-signup')" style="padding:.8rem 1.8rem;font-size:15px">Start Free — No Card Needed</button>
+      <button class="btn btn-wa" onclick="openWA()">WhatsApp: 0725 028 310</button>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item"><div class="trust-dot"></div>M-Pesa Accepted</div>
+      <div class="trust-item"><div class="trust-dot"></div>Kiswahili & English</div>
+      <div class="trust-item"><div class="trust-dot"></div>500+ Businesses</div>
+      <div class="trust-item"><div class="trust-dot"></div>No Monthly Lock-in</div>
+      <div class="trust-item"><div class="trust-dot"></div>10 AI Tools</div>
     </div>
   </div>
 
-  <!-- AI TOOLS -->
-  <div class="section">
-    <div class="slabel">AI Tools</div>
-    <div class="stitle">10 tools that do your marketing for you</div>
-    <p class="ssub">Built specifically for Kenyan sellers across every niche and platform.</p>
-    <div class="tools-grid-land">
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">📱</div><div class="tn">TOOL 01</div><h4>WhatsApp Message</h4><p>Broadcasts that get replies & drive sales instantly</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">📸</div><div class="tn">TOOL 02</div><h4>Instagram Caption</h4><p>Kiswahili + English captions with buyer psychology</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">📣</div><div class="tn">TOOL 03</div><h4>Facebook Ad Copy</h4><p>Convert cold Kenyan audiences into buyers</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">🏷️</div><div class="tn">TOOL 04</div><h4>Product Description</h4><p>Benefit-driven copy that sells the outcome</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">👤</div><div class="tn">TOOL 05</div><h4>Business Bio</h4><p>Professional bios for all social platforms</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">🎁</div><div class="tn">TOOL 06</div><h4>Promo Offer Creator</h4><p>Flash sales & urgency messages that convert</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">#️⃣</div><div class="tn">TOOL 07</div><h4>Hashtag Generator</h4><p>Niche-specific Kenyan hashtags by category</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">✏️</div><div class="tn">TOOL 08</div><h4>Content Rewriter</h4><p>Refresh old captions — make them fresh again</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">🎭</div><div class="tn">TOOL 09</div><h4>Tone Changer</h4><p>Switch between Professional, Persuasive & Funny</p></div>
-      <div class="tcard-land" onclick="showPage('dashboard');showDash('tools')"><div class="ticon">📍</div><div class="tn">TOOL 10 · NEW</div><h4>GMB Post Generator</h4><p>Google My Business posts for local Nairobi search</p></div>
+  <div class="land-section"><div class="land-inner">
+    <div class="sec-tag">Why Talim AI</div>
+    <div class="sec-h2">Everything you need to market your business</div>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-icon">📱</div><h4>WhatsApp Broadcasts</h4><p>Messages that get read, replies, and drive sales — in seconds</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📸</div><h4>Instagram Captions</h4><p>Scroll-stopping captions in Kiswahili, English, or Sheng</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📍</div><h4>GMB Post Generator</h4><p>Rank on Google Maps with optimized local content</p></div>
+      <div class="benefit-card"><div class="benefit-icon">#️⃣</div><h4>Kenyan Hashtags</h4><p>Niche-specific hashtags that reach actual local buyers</p></div>
+      <div class="benefit-card"><div class="benefit-icon">📣</div><h4>Facebook Ads</h4><p>Ad copy that converts cold audiences into paying customers</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🎁</div><h4>Promo Offers</h4><p>Flash sale messages with urgency that drives action</p></div>
     </div>
-  </div>
+  </div></div>
 
-  <!-- POSTER & LOGO DESIGN SERVICE -->
-  <div class="section">
-    <div class="slabel">Design Services</div>
-    <div class="stitle">Poster & Logo Design by Professionals</div>
-    <div class="service-box">
-      <div class="service-tag">✦ HUMAN DESIGNERS — NOT TEMPLATES</div>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;max-width:580px">Need a custom poster or logo that <strong style="color:var(--text)">actually sells</strong>? Our designers create eye-catching business posters, menus, flyers, logos & complete branding materials — tailored for the Kenyan market.</p>
-      <div class="service-items">
-        <span class="service-item">Business Logos</span><span class="service-item">Flyers & Posters</span><span class="service-item">Restaurant Menus</span><span class="service-item">Shop Banners</span><span class="service-item">Social Media Graphics</span><span class="service-item">Branding Kits</span><span class="service-item">T-Shirt Designs</span>
+  <div class="land-section" id="pricing"><div class="land-inner">
+    <div class="sec-tag">Pricing</div>
+    <div class="sec-h2">Simple pricing. M-Pesa accepted.</div>
+    <div class="tier-grid" style="margin-top:1.75rem">
+      <div class="tier-card">
+        <div class="tier-name">Free</div>
+        <div class="tier-price">KSh 0<small>/month</small></div>
+        <div class="tier-note">2 prompts per day, always free</div>
+        <ul class="tier-list"><li class="good">2 AI generations/day</li><li class="good">All 10 tools</li><li>No history storage</li><li>No PDF export</li></ul>
+        <button class="tier-btn" onclick="goTo('scr-signup')">Get Started Free</button>
       </div>
-      <div class="service-btns">
-        <button class="btn-wa" onclick="openWA()">💬 WhatsApp: 0725 028 310</button>
-        <button class="btn-teal" onclick="showPage('services')">Order Design Now →</button>
+      <div class="tier-card hot">
+        <div class="tier-badge">Best Value</div>
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">KSh 199<small> one-time</small></div>
+        <div class="tier-note">5 prompts — use anytime, no expiry</div>
+        <ul class="tier-list"><li class="good">5 AI generations (permanent)</li><li class="good">All tools</li><li class="good">Copy & save outputs</li><li>No history</li></ul>
+        <button class="tier-btn" onclick="goTo('scr-signup')">Buy Starter Plan</button>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Pro</div>
+        <div class="tier-price">KSh 800<small>/month</small></div>
+        <div class="tier-note">100 prompts per day</div>
+        <ul class="tier-list"><li class="good">100 generations/day</li><li class="good">Full history (30 days)</li><li class="good">PDF export</li><li class="good">Priority support</li></ul>
+        <button class="tier-btn" onclick="goTo('scr-signup')">Start Pro</button>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Premium</div>
+        <div class="tier-price">KSh 1,500<small>/month</small></div>
+        <div class="tier-note">Unlimited — fair use</div>
+        <ul class="tier-list"><li class="good">Unlimited generations</li><li class="good">Unlimited history</li><li class="good">Bulk export</li><li class="good">WhatsApp support</li></ul>
+        <button class="tier-btn" onclick="goTo('scr-signup')">Go Premium</button>
       </div>
     </div>
-  </div>
+  </div></div>
 
-  <!-- GMB SERVICES -->
-  <div class="section">
-    <div class="slabel">Google My Business</div>
-    <div class="stitle">Rank on Google Maps — Get Found Locally</div>
-    <p class="ssub" style="margin-bottom:0">We help Kenyan businesses rank higher on Google Maps so local customers find you first.</p>
-    <div class="gmb-grid">
-      <div class="gmb-item"><div class="gmb-icon">🗺️</div><h4>Account Creation</h4><p>Set up your GMB from scratch</p></div>
-      <div class="gmb-item"><div class="gmb-icon">⚙️</div><h4>Profile Optimization</h4><p>Complete, keyword-rich profile</p></div>
-      <div class="gmb-item"><div class="gmb-icon">📦</div><h4>Products & Services</h4><p>List all your offerings correctly</p></div>
-      <div class="gmb-item"><div class="gmb-icon">📅</div><h4>Weekly GMB Posts</h4><p>Fresh content to boost ranking</p></div>
-      <div class="gmb-item"><div class="gmb-icon">🔑</div><h4>Keyword Strategy</h4><p>Local Nairobi search keywords</p></div>
-      <div class="gmb-item"><div class="gmb-icon">⭐</div><h4>Reviews Strategy</h4><p>Get more 5-star reviews</p></div>
-      <div class="gmb-item"><div class="gmb-icon">📈</div><h4>Maps Ranking Growth</h4><p>Climb the local 3-pack results</p></div>
-      <div class="gmb-item"><div class="gmb-icon">📊</div><h4>Monthly Reports</h4><p>Track views, clicks & calls</p></div>
-    </div>
-    <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
-      <button class="btn-teal" onclick="showPage('services')">Get Started — GMB Services</button>
-      <button class="btn-wa" onclick="openWA()">💬 Ask on WhatsApp</button>
-    </div>
-  </div>
-
-  <!-- PRICING -->
-  <div class="section">
-    <div class="slabel">Pricing</div>
-    <div class="stitle">Simple pricing. No surprises.</div>
-    <div class="pricing-grid">
-      <div class="price-card hot">
-        <div class="price-badge">Best Value</div>
-        <div class="ptier">Starter</div>
-        <div class="pamount">KSh 199<small> one-time</small></div>
-        <div class="pnote">✓ Use 5 prompts anytime — no expiry</div>
-        <ul class="plist">
-          <li class="good">5 AI generations (use anytime)</li>
-          <li class="good">All 10 AI tools included</li>
-          <li class="good">Copy to clipboard</li>
-          <li class="good">Kiswahili + English output</li>
-          <li style="color:var(--text3)">No PDF export</li>
-          <li style="color:var(--text3)">No history storage</li>
-        </ul>
-        <button class="pbtn" onclick="showMpesa('Starter','199')">Pay via M-Pesa ✦</button>
-      </div>
-      <div class="price-card">
-        <div class="ptier">Pro Monthly</div>
-        <div class="pamount">KSh 800<small>/month</small></div>
-        <div class="pnote">✓ 50 AI generations per day</div>
-        <ul class="plist">
-          <li class="good">50 generations/day</li>
-          <li class="good">All 10 AI tools</li>
-          <li class="good">PDF export</li>
-          <li class="good">30-day history</li>
-          <li class="good">Priority support</li>
-        </ul>
-        <button class="pbtn" onclick="showMpesa('Pro','800')">Pay via M-Pesa</button>
-      </div>
-      <div class="price-card">
-        <div class="ptier">Unlimited</div>
-        <div class="pamount">KSh 1,500<small>/month</small></div>
-        <div class="pnote">✓ Unlimited AI generations</div>
-        <ul class="plist">
-          <li class="good">Unlimited generations</li>
-          <li class="good">All tools + new features first</li>
-          <li class="good">Unlimited history</li>
-          <li class="good">Bulk PDF export</li>
-          <li class="good">WhatsApp priority support</li>
-        </ul>
-        <button class="pbtn" onclick="showMpesa('Unlimited','1500')">Pay via M-Pesa</button>
-      </div>
-      <div class="price-card">
-        <div class="ptier">Agency</div>
-        <div class="pamount">KSh 3,500<small>/month</small></div>
-        <div class="pnote">✓ Up to 5 team seats</div>
-        <ul class="plist">
-          <li class="good">5 team members</li>
-          <li class="good">Client workspaces</li>
-          <li class="good">White-label reports</li>
-          <li class="good">GMB post generation</li>
-          <li class="good">Dedicated onboarding</li>
-        </ul>
-        <button class="pbtn" onclick="openWA()">WhatsApp for Agency</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TESTIMONIALS -->
-  <div class="section">
-    <div class="slabel">Testimonials</div>
-    <div class="stitle">What Kenyan businesses say</div>
+  <div class="land-section"><div class="land-inner">
+    <div class="sec-tag">Testimonials</div>
+    <div class="sec-h2">What Kenyan businesses say</div>
     <div class="test-grid">
-      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"Niliandika WhatsApp message moja na biashara iliongezeka! Ilifanya kazi haraka kuliko nilivyotegemea. Napenda Talim AI sana."</div><div class="test-author"><div class="test-avatar" style="background:var(--teal)">JW</div><div><div class="test-name">Jane Wanjiku</div><div class="test-biz">Mitumba Shop, Gikomba</div></div></div></div>
-      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"I used to spend 30 minutes writing captions. Now it's done in 10 seconds. My Instagram engagement has doubled this month!"</div><div class="test-author"><div class="test-avatar" style="background:#9B7FF4">PO</div><div><div class="test-name">Peter Otieno</div><div class="test-biz">Electronics Store, Tom Mboya</div></div></div></div>
-      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"The hashtag generator is 🔥 for my salon. #NairobiBeauty is getting me new customers from my area every week now."</div><div class="test-author"><div class="test-avatar" style="background:var(--accent)">AM</div><div><div class="test-name">Aisha Mohamed</div><div class="test-biz">Beauty Salon, Westlands</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"Niliandika WhatsApp message moja na biashara iliongezeka sana. Talim AI inafanya kazi!"</div><div class="test-auth"><div class="test-av" style="background:var(--teal)">JW</div><div><div class="test-name">Jane Wanjiku</div><div class="test-biz">Mitumba Shop, Gikomba</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"I used to spend 30 mins on captions. Now 10 seconds. My Instagram engagement doubled."</div><div class="test-auth"><div class="test-av" style="background:#7C3AED">PO</div><div><div class="test-name">Peter Otieno</div><div class="test-biz">Electronics, Tom Mboya</div></div></div></div>
+      <div class="test-card"><div class="test-stars">★★★★★</div><div class="test-text">"The hashtag generator is perfect for my salon. I get new clients from Westlands every week now."</div><div class="test-auth"><div class="test-av" style="background:#D97706">AM</div><div><div class="test-name">Aisha Mohamed</div><div class="test-biz">Beauty Salon, Westlands</div></div></div></div>
     </div>
-  </div>
+  </div></div>
 
-  <!-- SEO-OPTIMIZED FAQ -->
-  <div class="section">
-    <div class="slabel">FAQ</div>
-    <div class="stitle">Common questions</div>
-    <div style="margin-top:1.25rem">
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Is Talim AI a free AI caption writer in Kenya? <span class="faq-plus">+</span></div><div class="faq-a">The Starter plan gives you 5 free AI-powered captions, WhatsApp messages, and ad copy — with no monthly fee. After that, plans start at KSh 800/month. We accept M-Pesa payments.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Can it generate content in Kiswahili? <span class="faq-plus">+</span></div><div class="faq-a">Yes! Select Kiswahili, English, or Sheng when generating. Our AI is tuned for Kenyan buyer language, including local slang, trust phrases, and Nairobi market references.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How does M-Pesa payment work? <span class="faq-plus">+</span></div><div class="faq-a">Click any "Pay via M-Pesa" button, enter your phone number, and you'll receive an STK push on your phone. Enter your PIN and your account upgrades automatically within 30 seconds. Paybill: 400200.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">What is the best hashtag generator for Kenya? <span class="faq-plus">+</span></div><div class="faq-a">Talim AI's hashtag generator is built specifically for Kenyan niches — restaurants, fashion, electronics, real estate, beauty, events, and more. It generates local tags like #NairobiFood, #KenyaFashion, and #NairobiTech that actually reach Kenyan buyers.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Do you offer Google My Business services in Kenya? <span class="faq-plus">+</span></div><div class="faq-a">Yes! We offer full Google My Business setup, optimization, weekly posts, keyword strategy, and Maps ranking growth for Kenyan businesses. WhatsApp 0725 028 310 to get started.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Do you do website design in Nairobi? <span class="faq-plus">+</span></div><div class="faq-a">Yes — we build business websites, ecommerce stores, portfolio sites, booking websites, and landing pages. Fill in the quote form on our Services page or WhatsApp 0725 028 310 for pricing.</div></div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-wrap">
-    <div style="max-width:600px;margin:0 auto">
-      <div class="slabel" style="text-align:center">Get Started Today</div>
-      <h2 style="font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;line-height:1.15;margin-bottom:.75rem;text-align:center">Stop writing ads manually.<br>Let AI do it in 10 seconds.</h2>
-      <p style="color:var(--text2);font-size:14px;margin-bottom:1.75rem;text-align:center;line-height:1.6">Join 500+ Kenyan businesses generating daily marketing content with Talim AI. M-Pesa accepted. No technical skills needed.</p>
-      <div class="btn-row">
-        <button class="btn-teal" onclick="showPage('dashboard');showDash('tools')">⚡ Start Generating Free</button>
-        <button class="btn-wa" onclick="openWA()">💬 WhatsApp: 0725 028 310</button>
+  <div class="cta-band">
+    <div style="max-width:520px;margin:0 auto">
+      <div class="sec-h2">Ready to market smarter?</div>
+      <p style="color:var(--text2);font-size:14px;margin:.75rem 0 1.75rem;line-height:1.65">Join 500+ Kenyan businesses. Create your free account in 60 seconds. M-Pesa accepted.</p>
+      <div class="land-btns">
+        <button class="btn btn-teal" style="padding:.8rem 2rem" onclick="goTo('scr-signup')">Create Free Account</button>
+        <button class="btn btn-wa" onclick="openWA()">WhatsApp Us</button>
       </div>
     </div>
   </div>
+  <div class="land-footer">© 2025 Talim AI · Made in Kenya 🇰🇪 · AI Caption Writer Kenya · Hashtag Generator Kenya · Google My Business Kenya · <span style="color:var(--teal)">talim.ai</span></div>
+</div>
 
-  <div style="text-align:center;padding:1.5rem 1rem;color:var(--text3);font-size:11px;border-top:1px solid var(--border)">
-    © 2025 Talim AI · Made in Kenya 🇰🇪 · AI Caption Writer Kenya · Hashtag Generator Kenya · Website Design Nairobi · <span style="color:var(--teal)">talim.ai</span>
-  </div>
+<!-- ===== SIGN UP ===== -->
+<div id="scr-signup" class="screen">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-logo"><div class="logo-mark" style="margin:0 auto 1rem;width:44px;height:44px;font-size:18px">T</div></div>
+      <div class="auth-title">Create your account</div>
+      <div class="auth-sub">Start with 2 free AI generations daily</div>
+      <div id="signup-alert"></div>
+      <div class="field"><label class="label">Full Name</label><input class="inp" id="su-name" type="text" placeholder="Jane Wanjiku"></div>
+      <div class="field"><label class="label">Email Address</label><input class="inp" id="su-email" type="email" placeholder="jane@email.com"></div>
+      <div class="field"><label class="label">Phone / WhatsApp</label><input class="inp" id="su-phone" type="tel" placeholder="0712345678"></div>
+      <div class="field"><label class="label">Password</label><input class="inp" id="su-pass" type="password" placeholder="Min. 6 characters"></div>
+      <div class="field"><label class="label">Business Name (optional)</label><input class="inp" id="su-biz" type="text" placeholder="Wanjiku Electronics"></div>
+      <div class="check-row"><input type="checkbox" id="su-terms" checked><label for="su-terms">I agree to the <span class="auth-link">Terms of Service</span> & <span class="auth-link">Privacy Policy</span></label></div>
+      <button class="btn btn-teal btn-full" id="su-btn" onclick="doSignup()"><span class="spin-sm" id="su-spin"></span>Create Account</button>
+      <div class="auth-divider">or</div>
+      <button class="btn btn-ghost btn-full" onclick="demoLogin('user')">Use Demo Account</button>
+      <div class="auth-footer">Already have an account? <span class="auth-link" onclick="goTo('scr-login')">Log in</span></div>
+    </div>
   </div>
 </div>
 
-<!-- ==================== DASHBOARD ==================== -->
-<div id="page-dashboard" class="page">
-  <div class="dash-wrap">
+<!-- ===== LOGIN ===== -->
+<div id="scr-login" class="screen">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-logo"><div class="logo-mark" style="margin:0 auto 1rem;width:44px;height:44px;font-size:18px">T</div></div>
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-sub">Log in to your Talim AI account</div>
+      <div id="login-alert"></div>
+      <div class="field"><label class="label">Email Address</label><input class="inp" id="li-email" type="email" placeholder="jane@email.com"></div>
+      <div class="field"><label class="label">Password</label><input class="inp" id="li-pass" type="password" placeholder="Your password"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+        <div class="check-row" style="margin:0"><input type="checkbox" id="li-rem"><label for="li-rem" style="font-size:13px;color:var(--text2);cursor:pointer">Remember me</label></div>
+        <span class="auth-link" style="font-size:13px" onclick="goTo('scr-forgot')">Forgot password?</span>
+      </div>
+      <button class="btn btn-teal btn-full" id="li-btn" onclick="doLogin()"><span class="spin-sm" id="li-spin"></span>Log In</button>
+      <div class="auth-divider">quick access demos</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+        <button class="btn btn-ghost btn-sm btn-full" onclick="demoLogin('user')">User Demo</button>
+        <button class="btn btn-ghost btn-sm btn-full" onclick="demoLogin('admin')">Admin Demo</button>
+      </div>
+      <div class="auth-footer">No account? <span class="auth-link" onclick="goTo('scr-signup')">Sign up free</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FORGOT PASSWORD ===== -->
+<div id="scr-forgot" class="screen">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-logo"><div class="logo-mark" style="margin:0 auto 1rem;width:44px;height:44px;font-size:18px">T</div></div>
+      <div class="auth-title">Reset your password</div>
+      <div class="auth-sub">We'll send a reset link to your email</div>
+      <div id="forgot-alert"></div>
+      <div class="field"><label class="label">Email Address</label><input class="inp" id="fo-email" type="email" placeholder="jane@email.com"></div>
+      <button class="btn btn-teal btn-full" onclick="doForgot()">Send Reset Link</button>
+      <div class="auth-footer"><span class="auth-link" onclick="goTo('scr-login')">← Back to login</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== USER DASHBOARD ===== -->
+<div id="scr-user" class="screen">
+  <div class="topbar">
+    <div class="logo"><div class="logo-mark">T</div><span class="logo-name">Talim AI</span></div>
+    <div class="topbar-nav">
+      <div class="user-pill" id="user-pill">
+        <div class="avatar" id="user-av" style="background:var(--teal)">JW</div>
+        <span id="user-display-name">Jane W.</span>
+      </div>
+      <button class="tnav-btn" onclick="doLogout()">Log out</button>
+    </div>
+  </div>
+  <div class="main-layout">
     <div class="sidebar">
-      <div class="sb-section">
-        <div class="sb-label">AI Tools</div>
-        <div class="sb-item active" id="sb-tools" onclick="showDash('tools')"><span class="sb-icon">⚡</span>Generate Content</div>
-        <div class="sb-item" id="sb-history" onclick="showDash('history')"><span class="sb-icon">🕐</span>History</div>
-        <div class="sb-item" id="sb-trends" onclick="showDash('trends')"><span class="sb-icon">📈</span>Market Trends<span class="sb-badge">NEW</span></div>
+      <div class="sb-sec">
+        <div class="sb-lbl">Generate</div>
+        <div class="sb-item active" id="sb-tools" onclick="showPanel('tools')"><span class="sb-icon">⚡</span>AI Tools</div>
+        <div class="sb-item" id="sb-history" onclick="showPanel('history')"><span class="sb-icon">🕐</span>History</div>
+        <div class="sb-item" id="sb-trends" onclick="showPanel('trends')"><span class="sb-icon">📈</span>Market Trends<span class="sb-badge">NEW</span></div>
       </div>
-      <div class="sb-section">
-        <div class="sb-label">Account</div>
-        <div class="sb-item" id="sb-billing" onclick="showDash('billing')"><span class="sb-icon">💳</span>Billing</div>
-        <div class="sb-item" id="sb-settings" onclick="showDash('settings')"><span class="sb-icon">⚙️</span>Settings</div>
+      <div class="sb-sec">
+        <div class="sb-lbl">Account</div>
+        <div class="sb-item" id="sb-billing" onclick="showPanel('billing')"><span class="sb-icon">💳</span>Billing & Plans</div>
+        <div class="sb-item" id="sb-payments" onclick="showPanel('payments')"><span class="sb-icon">📄</span>Payment History</div>
+        <div class="sb-item" id="sb-refer" onclick="showPanel('refer')"><span class="sb-icon">🎁</span>Refer a Friend</div>
+        <div class="sb-item" id="sb-settings" onclick="showPanel('settings')"><span class="sb-icon">⚙️</span>Settings</div>
       </div>
-      <div class="usage-box">
-        <div class="plan-pill">STARTER PLAN</div>
-        <div style="font-size:10px;color:var(--text2);margin-bottom:.35rem">5 prompts one-time. Use anytime.</div>
-        <div class="usage-bar-bg"><div class="usage-bar-fill" style="width:40%"></div></div>
-        <div class="usage-txt"><span>3 of 5 used</span><span style="color:var(--teal);cursor:pointer" onclick="showDash('billing')">Upgrade</span></div>
+      <div class="plan-box">
+        <div class="plan-tier" id="sb-plan-name">FREE PLAN</div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:.35rem" id="sb-plan-desc">2 prompts per day</div>
+        <div class="prog-bg"><div class="prog-fill" id="sb-prog" style="width:0%"></div></div>
+        <div class="prog-txt"><span id="sb-used">0 used today</span><span style="color:var(--teal);cursor:pointer;font-weight:600" onclick="showPanel('billing')">Upgrade</span></div>
       </div>
     </div>
 
-    <div class="dash-main">
+    <div class="main-content">
 
-      <!-- TOOLS PANEL -->
-      <div id="dp-tools" class="dpanel active">
-        <div class="dtitle">Generate Marketing Content</div>
-        <div class="dsub">Select a tool, describe your product or business, and get AI-powered copy in seconds</div>
-        <div class="metric-row">
-          <div class="metric"><div class="metric-l">Generated Today</div><div class="metric-v">3</div><div class="metric-ch up">↑ 1 vs yesterday</div></div>
-          <div class="metric"><div class="metric-l">This Month</div><div class="metric-v">47</div><div class="metric-ch up">↑ 12%</div></div>
-          <div class="metric"><div class="metric-l">Prompts Left</div><div class="metric-v" style="color:var(--teal)">2</div><div class="metric-ch" style="color:var(--text3)">of 5 starter</div></div>
-          <div class="metric"><div class="metric-l">Streak</div><div class="metric-v">🔥 7</div><div class="metric-ch up">days active</div></div>
+      <!-- TOOLS -->
+      <div id="panel-tools" class="panel show">
+        <div class="page-title" id="welcome-title">Good day, Jane!</div>
+        <div class="page-sub">Select a tool, describe your product, and get AI marketing copy instantly.</div>
+        <div class="metric-grid">
+          <div class="metric-card"><div class="metric-l">Generated Today</div><div class="metric-v" id="m-today">2</div><div class="metric-ch up">Active</div></div>
+          <div class="metric-card"><div class="metric-l">This Month</div><div class="metric-v">47</div><div class="metric-ch up">↑ 12%</div></div>
+          <div class="metric-card"><div class="metric-l">Prompts Left</div><div class="metric-v" id="m-left" style="color:var(--teal)">0</div><div class="metric-ch" style="color:var(--text3)" id="m-left-sub">of 2 today</div></div>
+          <div class="metric-card"><div class="metric-l">Plan</div><div class="metric-v" id="m-plan" style="font-size:1rem">Free</div><div class="metric-ch" style="color:var(--text2)">Upgrade anytime</div></div>
         </div>
-
-        <div class="tools-grid-dash">
-          <div class="tcard sel" id="tc-whatsapp" onclick="selectTool('whatsapp','📱','WhatsApp Message',this)"><div class="tcard-e">📱</div><h4>WhatsApp Message</h4><p>Broadcasts that sell</p></div>
-          <div class="tcard" id="tc-instagram" onclick="selectTool('instagram','📸','Instagram Caption',this)"><div class="tcard-e">📸</div><h4>Instagram Caption</h4><p>Kiswahili + English</p></div>
-          <div class="tcard" id="tc-facebook" onclick="selectTool('facebook','📣','Facebook Ad Copy',this)"><div class="tcard-e">📣</div><h4>Facebook Ad Copy</h4><p>Convert cold audiences</p></div>
-          <div class="tcard" id="tc-product" onclick="selectTool('product','🏷️','Product Description',this)"><div class="tcard-e">🏷️</div><h4>Product Description</h4><p>Benefit-driven copy</p></div>
-          <div class="tcard" id="tc-bio" onclick="selectTool('bio','👤','Business Bio',this)"><div class="tcard-e">👤</div><h4>Business Bio</h4><p>Pro bios all platforms</p></div>
-          <div class="tcard" id="tc-offer" onclick="selectTool('offer','🎁','Promo Offer',this)"><div class="tcard-e">🎁</div><h4>Promo Offer</h4><p>Flash sales & urgency</p></div>
-          <div class="tcard" id="tc-hashtag" onclick="selectTool('hashtag','#️⃣','Hashtag Generator',this)"><div class="tcard-e">#️⃣</div><h4>Hashtag Generator</h4><p>Niche-based Kenyan tags</p></div>
-          <div class="tcard" id="tc-rewrite" onclick="selectTool('rewrite','✏️','Content Rewriter',this)"><div class="tcard-e">✏️</div><h4>Content Rewriter</h4><p>Refresh old content</p></div>
-          <div class="tcard" id="tc-tone" onclick="selectTool('tone','🎭','Tone Changer',this)"><div class="tcard-e">🎭</div><h4>Tone Changer</h4><p>Pro / Persuasive / Funny</p></div>
-          <div class="tcard" id="tc-gmb" onclick="selectTool('gmb','📍','GMB Post Generator',this)"><div class="new-badge">NEW</div><div class="tcard-e">📍</div><h4>GMB Post Generator</h4><p>Google Maps local posts</p></div>
+        <div class="tools-grid">
+          <div class="tool-card sel" id="tc-wa" onclick="selTool('wa','📱','WhatsApp Message',this)"><div class="tool-e">📱</div><h4>WhatsApp Message</h4><p>Broadcasts that sell</p></div>
+          <div class="tool-card" id="tc-ig" onclick="selTool('ig','📸','Instagram Caption',this)"><div class="tool-e">📸</div><h4>Instagram Caption</h4><p>Kiswahili + English</p></div>
+          <div class="tool-card" id="tc-fb" onclick="selTool('fb','📣','Facebook Ad',this)"><div class="tool-e">📣</div><h4>Facebook Ad Copy</h4><p>Convert cold audiences</p></div>
+          <div class="tool-card" id="tc-prod" onclick="selTool('prod','🏷️','Product Description',this)"><div class="tool-e">🏷️</div><h4>Product Description</h4><p>Benefit-driven copy</p></div>
+          <div class="tool-card" id="tc-bio" onclick="selTool('bio','👤','Business Bio',this)"><div class="tool-e">👤</div><h4>Business Bio</h4><p>Pro bios all platforms</p></div>
+          <div class="tool-card" id="tc-offer" onclick="selTool('offer','🎁','Promo Offer',this)"><div class="tool-e">🎁</div><h4>Promo Offer</h4><p>Flash sales & urgency</p></div>
+          <div class="tool-card" id="tc-hash" onclick="selTool('hash','#️⃣','Hashtag Generator',this)"><div class="tool-e">#️⃣</div><h4>Hashtag Generator</h4><p>Niche Kenyan hashtags</p></div>
+          <div class="tool-card" id="tc-gmb" onclick="selTool('gmb','📍','GMB Post',this)"><div class="tool-new">NEW</div><div class="tool-e">📍</div><h4>GMB Post Generator</h4><p>Google Maps local posts</p></div>
+          <div class="tool-card" id="tc-sms" onclick="selTool('sms','💬','SMS Campaign',this)"><div class="tool-lock">PRO</div><div class="tool-e">💬</div><h4>SMS Campaign</h4><p>Short bulk SMS copy</p></div>
+          <div class="tool-card" id="tc-rw" onclick="selTool('rw','✏️','Content Rewriter',this)"><div class="tool-e">✏️</div><h4>Content Rewriter</h4><p>Refresh old content</p></div>
         </div>
-
-        <div class="gen-panel">
-          <div class="gp-title"><span id="tool-emoji">📱</span><span id="tool-name">WhatsApp Message Generator</span></div>
-
-          <div class="inp-group">
-            <label class="inp-lbl">What are you selling?</label>
-            <input id="inp-product" class="dash-inp" type="text" placeholder="e.g. Second-hand iPhone 14 Pro, 256GB, good condition — KSh 85,000">
+        <div class="gen-box">
+          <div class="gen-title"><span id="cur-tool-e">📱</span><span id="cur-tool-name">WhatsApp Message Generator</span></div>
+          <div class="field"><label class="label">What are you selling?</label><input class="inp" id="inp-prod" type="text" placeholder="e.g. iPhone 14 Pro 256GB, good condition — KSh 85,000"></div>
+          <div id="hash-niche-wrap" style="display:none" class="field"><label class="label">Business Niche</label><select class="sel" id="inp-niche"><option value="fashion">Fashion / Mitumba</option><option value="beauty">Beauty & Salon</option><option value="food">Food & Restaurant</option><option value="electronics">Electronics & Phones</option><option value="realestate">Real Estate</option><option value="hardware">Hardware</option><option value="events">Events</option><option value="general">General Business</option></select></div>
+          <div id="gmb-loc-wrap" style="display:none" class="field"><label class="label">Your Location</label><input class="inp" id="inp-loc" type="text" placeholder="e.g. Westlands, Nairobi CBD, Embakasi..."></div>
+          <div class="field"><label class="label">Language</label><div class="chip-row"><div class="chip on" onclick="setChip(this,'lang','en','lang-chips')">English</div><div class="chip" onclick="setChip(this,'lang','sw','lang-chips')">Kiswahili</div><div class="chip" onclick="setChip(this,'lang','sh','lang-chips')">Sheng</div></div></div>
+          <div class="field"><label class="label">Tone</label><div class="chip-row lang-chips" id="tone-chips"><div class="chip on" onclick="setChip(this,'tone','professional','tone-chips')">Professional</div><div class="chip" onclick="setChip(this,'tone','persuasive','tone-chips')">Persuasive</div><div class="chip" onclick="setChip(this,'tone','funny','tone-chips')">Funny</div><div class="chip" onclick="setChip(this,'tone','urgent','tone-chips')">Urgent</div></div></div>
+          <div style="display:flex;align-items:center;gap:.85rem;flex-wrap:wrap">
+            <button class="btn btn-teal" id="gen-btn" onclick="doGenerate()"><span class="spin-sm" id="gen-spin"></span>Generate Content</button>
+            <span style="font-size:12px;color:var(--text3)" id="gen-hint">Uses 1 prompt</span>
           </div>
-
-          <!-- HASHTAG NICHE DROPDOWN (shown only for hashtag tool) -->
-          <div class="inp-group" id="niche-group" style="display:none">
-            <label class="inp-lbl">Business Niche</label>
-            <select id="inp-niche" class="dash-sel">
-              <option value="fashion">Fashion / Mitumba</option>
-              <option value="beauty">Beauty & Salon</option>
-              <option value="food">Food & Restaurant</option>
-              <option value="hardware">Hardware & Construction</option>
-              <option value="electronics">Electronics & Phones</option>
-              <option value="realestate">Real Estate</option>
-              <option value="printing">Printing & Design</option>
-              <option value="events">Events & Entertainment</option>
-              <option value="general">General Business</option>
-            </select>
-          </div>
-
-          <!-- GMB LOCATION (shown only for GMB tool) -->
-          <div class="inp-group" id="gmb-group" style="display:none">
-            <label class="inp-lbl">Your Location (for local SEO)</label>
-            <input id="inp-location" class="dash-inp" type="text" placeholder="e.g. Nairobi CBD, Westlands, Thika Road, Embakasi...">
-          </div>
-
-          <div class="inp-group" id="audience-group">
-            <label class="inp-lbl">Target Audience (optional)</label>
-            <input id="inp-audience" class="dash-inp" type="text" placeholder="e.g. Nairobi buyers, university students, businesses...">
-          </div>
-
-          <!-- LANGUAGE SELECTOR -->
-          <div class="inp-group">
-            <label class="inp-lbl">Language</label>
-            <div class="lang-row">
-              <div class="tchip active" onclick="setLang(this,'english')">English</div>
-              <div class="tchip" onclick="setLang(this,'swahili')">Kiswahili</div>
-              <div class="tchip" onclick="setLang(this,'sheng')">Sheng</div>
-            </div>
-          </div>
-
-          <div class="inp-group">
-            <label class="inp-lbl">Tone</label>
-            <div class="tone-row">
-              <div class="tchip active" onclick="setTone(this,'professional')">Professional</div>
-              <div class="tchip" onclick="setTone(this,'persuasive')">Persuasive</div>
-              <div class="tchip" onclick="setTone(this,'funny')">Funny</div>
-              <div class="tchip" onclick="setTone(this,'urgent')">Urgent</div>
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-            <button class="gen-btn" id="gen-btn" onclick="doGenerate()"><span class="spinner-sm" id="gen-spin"></span>⚡ Generate</button>
-            <span style="font-size:11px;color:var(--text3)">1 prompt used · 2 remaining</span>
-          </div>
-
-          <div class="output-box" id="output-box"></div>
-          <div class="out-actions" id="out-actions" style="display:none">
-            <button class="btn-sm-act teal" onclick="copyOut()">📋 Copy</button>
-            <button class="btn-sm-act" onclick="clearOut()">Clear</button>
-            <button class="btn-sm-act" onclick="saveToHistory()">💾 Save</button>
-            <span class="copied" id="copied-msg">✓ Copied to clipboard!</span>
+          <div class="output-area" id="output-area"></div>
+          <div id="out-acts" style="display:none" class="out-row">
+            <button class="btn btn-ghost btn-sm" onclick="copyOut()">Copy</button>
+            <button class="btn btn-ghost btn-sm" onclick="saveOut()">Save to History</button>
+            <button class="btn btn-ghost btn-sm" onclick="clearOut()">Clear</button>
+            <span id="copy-confirm" style="font-size:12px;color:var(--teal);display:none;font-weight:600">Copied!</span>
           </div>
         </div>
       </div>
 
-      <!-- HISTORY PANEL -->
-      <div id="dp-history" class="dpanel">
-        <div class="dtitle">Generation History</div>
-        <div class="dsub">Your saved generations — copy, reuse, or export</div>
-        <div class="hist-list">
-          <div class="hist-item"><div class="hist-e">📱</div><div style="flex:1"><div class="hist-meta">WhatsApp Message · Professional · 2 hrs ago</div><div class="hist-txt">🔥 FLASH DEAL! iPhone 14 Pro, 256GB – KSh 85,000 only! Perfect condition, comes with original charger & box. Limited units. DM "IPHONE14" to reserve NOW! 📱</div></div><div class="hist-acts"><button class="btn-sm-act teal" style="font-size:10px">Copy</button><button class="btn-sm-act" style="font-size:10px">Reuse</button></div></div>
-          <div class="hist-item"><div class="hist-e">📸</div><div style="flex:1"><div class="hist-meta">Instagram Caption · Persuasive · Kiswahili · Yesterday</div><div class="hist-txt">Fresh mitumba drop imefika! 👗✨ Bei poa kuanzia KSh 500. Stock inaisha haraka — order leo, delivery Nairobi same day. DM sasa! #NairobiMitumba #KenyaFashion</div></div><div class="hist-acts"><button class="btn-sm-act teal" style="font-size:10px">Copy</button><button class="btn-sm-act" style="font-size:10px">Reuse</button></div></div>
-          <div class="hist-item"><div class="hist-e">#️⃣</div><div style="flex:1"><div class="hist-meta">Hashtag Generator · Electronics Niche · 2 days ago</div><div class="hist-txt">#NairobiTech #PhonesKenya #DealsKenya #ElectronicsNairobi #iPhone14Kenya #GadgetsKE #TechDealsNairobi #KenyaSmartphones #NairobiCBD #AffordableTechKE</div></div><div class="hist-acts"><button class="btn-sm-act teal" style="font-size:10px">Copy</button><button class="btn-sm-act" style="font-size:10px">Reuse</button></div></div>
-          <div class="hist-item"><div class="hist-e">📍</div><div style="flex:1"><div class="hist-meta">GMB Post · Westlands Location · 3 days ago</div><div class="hist-txt">🌟 Top-rated hair salon in Westlands, Nairobi! Walk-ins welcome. From braids to relaxers — our experienced stylists deliver salon results you'll love. Book via WhatsApp: 0725028310 | Open Mon–Sat 8AM–7PM #WestlandsSalon #NairobiBeauty</div></div><div class="hist-acts"><button class="btn-sm-act teal" style="font-size:10px">Copy</button><button class="btn-sm-act" style="font-size:10px">Reuse</button></div></div>
+      <!-- HISTORY -->
+      <div id="panel-history" class="panel">
+        <div class="page-title">Generation History</div>
+        <div class="page-sub">All your saved AI generations — linked to your account</div>
+        <div class="hist-list" id="history-list">
+          <div class="hist-item"><div class="hist-icon">📱</div><div style="flex:1"><div class="hist-meta">WhatsApp Message · Professional · April 20, 2025 · 7:34 PM</div><div class="hist-txt">🔥 FLASH DEAL! iPhone 14 Pro 256GB — KSh 85,000. Original box, charger, 3-month warranty. Only 3 units left. Reply "IP14" NOW to reserve! 📱</div></div><div class="hist-acts"><button class="btn btn-ghost btn-sm" onclick="copyText(this)">Copy</button><button class="btn btn-ghost btn-sm">Reuse</button></div></div>
+          <div class="hist-item"><div class="hist-icon">📸</div><div style="flex:1"><div class="hist-meta">Instagram Caption · Kiswahili · Persuasive · April 19, 2025</div><div class="hist-txt">Fresh mitumba drop imefika! 👗✨ Bei poa kuanzia KSh 500. Stock inaisha — order leo, delivery Nairobi same day. DM sasa! #NairobiMitumba #KenyaFashion</div></div><div class="hist-acts"><button class="btn btn-ghost btn-sm">Copy</button><button class="btn btn-ghost btn-sm">Reuse</button></div></div>
+          <div class="hist-item"><div class="hist-icon">#️⃣</div><div style="flex:1"><div class="hist-meta">Hashtag Generator · Electronics Niche · April 18, 2025</div><div class="hist-txt">#NairobiTech #PhonesKenya #DealsKenya #ElectronicsNairobi #GadgetsKE #TechDealsNairobi #KenyaSmartphones #AffordableTechKE</div></div><div class="hist-acts"><button class="btn btn-ghost btn-sm">Copy</button><button class="btn btn-ghost btn-sm">Reuse</button></div></div>
+          <div class="hist-item"><div class="hist-icon">📍</div><div style="flex:1"><div class="hist-meta">GMB Post · Westlands · April 17, 2025</div><div class="hist-txt">Best hair salon in Westlands, Nairobi. Walk-ins welcome daily. Professional braids, relaxers & treatments. Book via WhatsApp: 0725028310. Open Mon–Sat 8AM–7PM. #WestlandsSalon #NairobiBeauty</div></div><div class="hist-acts"><button class="btn btn-ghost btn-sm">Copy</button><button class="btn btn-ghost btn-sm">Reuse</button></div></div>
         </div>
-        <div style="text-align:center;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)">
-          <div style="font-size:11px;color:var(--text3);margin-bottom:.6rem">Upgrade to Pro for full 30-day history & PDF export</div>
-          <button class="gen-btn" style="margin:0 auto" onclick="showDash('billing')">Upgrade Plan →</button>
-        </div>
-      </div>
-
-      <!-- MARKET TRENDS PANEL -->
-      <div id="dp-trends" class="dpanel">
-        <div class="dtitle">Real-Time Kenyan Market Trends</div>
-        <div class="dsub">AI-powered insights based on Kenyan seasonal patterns, buying habits & key dates</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem">
-          <div class="gen-panel" style="background:rgba(0,191,166,.05);border-color:rgba(0,191,166,.2)">
-            <div class="gp-title" style="color:var(--teal)">🗓️ April — Current Trends</div>
-            <ul style="list-style:none;font-size:12px;color:var(--text2);line-height:2">
-              <li>🎓 <strong style="color:var(--text)">School fees pressure</strong> — parents budgeting tight. Push value & installments.</li>
-              <li>☀️ <strong style="color:var(--text)">Long rains season</strong> — push rain gear, umbrellas, waterproof goods.</li>
-              <li>💰 <strong style="color:var(--text)">End-month (April 25-30)</strong> — salary spike. Best time for promotions.</li>
-              <li>🐑 <strong style="color:var(--text)">Eid al-Fitr prep</strong> — fashion, food, gifts in high demand.</li>
-              <li>📱 <strong style="color:var(--text)">Tax season</strong> — push business services, accounting tools.</li>
-            </ul>
-          </div>
-          <div class="gen-panel">
-            <div class="gp-title">📅 Upcoming Peak Dates</div>
-            <div style="font-size:12px;color:var(--text2);line-height:2">
-              <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--border)"><span>Labour Day</span><span style="color:var(--teal)">May 1</span></div>
-              <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--border)"><span>Madaraka Day</span><span style="color:var(--teal)">Jun 1</span></div>
-              <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--border)"><span>School Opening (Term 2)</span><span style="color:var(--teal)">May 6</span></div>
-              <div style="display:flex;justify-content:space-between;padding:.25rem 0;border-bottom:1px solid var(--border)"><span>Mother's Day</span><span style="color:var(--teal)">May 11</span></div>
-              <div style="display:flex;justify-content:space-between;padding:.25rem 0"><span>End Month Salary</span><span style="color:var(--teal)">Apr 25–30</span></div>
-            </div>
-          </div>
-          <div class="gen-panel">
-            <div class="gp-title">🔥 Hot Niches Right Now</div>
-            <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.25rem">
-              <span class="service-item" style="background:rgba(0,191,166,.1);border-color:rgba(0,191,166,.3);color:var(--teal)">🎓 School Uniforms</span>
-              <span class="service-item">☂️ Rain Jackets</span>
-              <span class="service-item">💇 Hair Salons</span>
-              <span class="service-item">📱 Smartphones</span>
-              <span class="service-item">🍔 Food Delivery</span>
-              <span class="service-item">🏘️ Rentals</span>
-              <span class="service-item">👗 Eid Fashion</span>
-              <span class="service-item">📊 Accounting</span>
-            </div>
-          </div>
-          <div class="gen-panel">
-            <div class="gp-title">💡 Nairobi Buying Habits</div>
-            <ul style="list-style:none;font-size:12px;color:var(--text2);line-height:2">
-              <li>⏰ <strong style="color:var(--text)">Peak browsing:</strong> 7–9PM (after work)</li>
-              <li>📅 <strong style="color:var(--text)">Peak buying:</strong> 25th–5th (pay cycle)</li>
-              <li>📱 <strong style="color:var(--text)">WhatsApp</strong> beats Facebook for direct sales</li>
-              <li>⭐ <strong style="color:var(--text)">Trust signals</strong> convert: reviews, unboxing, proof</li>
-              <li>💳 <strong style="color:var(--text)">M-Pesa</strong> installment options increase AOV by 40%</li>
-            </ul>
-          </div>
+        <div style="text-align:center;margin-top:1.5rem;padding:1rem;background:var(--bg3);border-radius:var(--r2)">
+          <p style="font-size:13px;color:var(--text2);margin-bottom:.75rem">Upgrade to Pro for full 30-day history & PDF export</p>
+          <button class="btn btn-teal btn-sm" onclick="showPanel('billing')">Upgrade Plan</button>
         </div>
       </div>
 
-      <!-- BILLING PANEL -->
-      <div id="dp-billing" class="dpanel">
-        <div class="dtitle">Billing & Plans</div>
-        <div class="dsub">You are on the Starter Plan (5 prompts one-time, no expiry)</div>
-        <div class="bill-grid">
-          <div class="bill-card cur"><div class="bill-tier">Starter — Current</div><div class="bill-price">KSh 199<small style="font-size:11px;font-weight:400;color:var(--text2)"> one-time</small></div><div class="bill-note">5 prompts · use anytime · no expiry</div><ul class="plist" style="font-size:11px"><li class="good">5 generations (3 remaining)</li><li class="good">All AI tools</li><li style="color:var(--text3)">No PDF export</li></ul><button class="bill-btn">Current Plan</button></div>
-          <div class="bill-card"><div class="bill-tier">Pro Monthly</div><div class="bill-price">KSh 800<small style="font-size:11px;font-weight:400;color:var(--text2)">/month</small></div><div class="bill-note">50 generations per day</div><ul class="plist" style="font-size:11px"><li class="good">50 gen/day</li><li class="good">PDF export</li><li class="good">30-day history</li></ul><button class="bill-btn" onclick="showMpesa('Pro','800')">Pay via M-Pesa</button></div>
-          <div class="bill-card"><div class="bill-tier">Unlimited</div><div class="bill-price">KSh 1,500<small style="font-size:11px;font-weight:400;color:var(--text2)">/month</small></div><div class="bill-note">Unlimited generations</div><ul class="plist" style="font-size:11px"><li class="good">Unlimited</li><li class="good">All features</li><li class="good">Priority support</li></ul><button class="bill-btn" onclick="showMpesa('Unlimited','1500')">Pay via M-Pesa</button></div>
-          <div class="bill-card"><div class="bill-tier">Agency</div><div class="bill-price">KSh 3,500<small style="font-size:11px;font-weight:400;color:var(--text2)">/month</small></div><div class="bill-note">5 team seats</div><ul class="plist" style="font-size:11px"><li class="good">Team workspace</li><li class="good">Client reports</li><li class="good">White-label</li></ul><button class="bill-btn" onclick="openWA()">WhatsApp Sales</button></div>
+      <!-- MARKET TRENDS -->
+      <div id="panel-trends" class="panel">
+        <div class="page-title">Kenyan Market Trends</div>
+        <div class="page-sub">Real-time insights to help you post at the right time</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.85rem">
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">April — Current Trends</div><ul style="list-style:none;font-size:12px;color:var(--text2);line-height:2.1"><li>🎓 <strong style="color:var(--text)">School fees</strong> — push value & payment plans</li><li>☀️ <strong style="color:var(--text)">Long rains</strong> — rain gear, umbrellas in demand</li><li>💰 <strong style="color:var(--text)">End month (25–30)</strong> — peak buying window</li><li>🐑 <strong style="color:var(--text)">Post-Eid</strong> — fashion & gift demand</li><li>📱 <strong style="color:var(--text)">Tax season</strong> — business service demand</li></ul></div>
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Upcoming Peak Dates</div><div style="font-size:12px;color:var(--text2);line-height:2.2"><div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>Labour Day</span><span style="color:var(--teal);font-weight:600">May 1</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>School Term 2 Opens</span><span style="color:var(--teal);font-weight:600">May 6</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>Mother's Day</span><span style="color:var(--teal);font-weight:600">May 11</span></div><div style="display:flex;justify-content:space-between;padding:.1rem 0"><span>Madaraka Day</span><span style="color:var(--teal);font-weight:600">Jun 1</span></div></div></div>
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Hot Niches Right Now</div><div style="display:flex;flex-wrap:wrap;gap:.4rem"><span style="background:var(--tealbg);color:var(--teal);border:1px solid var(--tealbdr);padding:.25rem .7rem;border-radius:999px;font-size:11px;font-weight:600">Uniforms</span><span style="background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:999px;font-size:11px">Rain Gear</span><span style="background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:999px;font-size:11px">Hair Salons</span><span style="background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:999px;font-size:11px">Smartphones</span><span style="background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:999px;font-size:11px">Food Delivery</span><span style="background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:999px;font-size:11px">Rentals</span></div></div>
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Nairobi Buyer Habits</div><ul style="list-style:none;font-size:12px;color:var(--text2);line-height:2.1"><li>⏰ <strong style="color:var(--text)">Peak browsing:</strong> 7–9 PM after work</li><li>📅 <strong style="color:var(--text)">Peak buying:</strong> 25th–5th (pay cycle)</li><li>📱 <strong style="color:var(--text)">WhatsApp</strong> beats Facebook for direct sales</li><li>💳 <strong style="color:var(--text)">M-Pesa installs</strong> increase avg order by 40%</li></ul></div>
         </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem;max-width:400px">
-          <div style="font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.5rem">Payment History</div>
-          <div style="font-size:12px;color:var(--text2);line-height:2">
-            <div style="display:flex;justify-content:space-between"><span>Starter Plan</span><span style="color:var(--green)">KSh 199 ✓ Paid</span></div>
-            <div style="display:flex;justify-content:space-between"><span>Date</span><span>April 10, 2025</span></div>
-            <div style="display:flex;justify-content:space-between"><span>M-Pesa Ref</span><span>QJK7X8WP2M</span></div>
+      </div>
+
+      <!-- BILLING -->
+      <div id="panel-billing" class="panel">
+        <div class="page-title">Billing & Plans</div>
+        <div class="page-sub" id="billing-sub">You are on the Free plan</div>
+        <div class="tier-grid" style="margin-bottom:1.75rem">
+          <div class="tier-card cur" id="tc-free"><div class="tier-name">Free — Current</div><div class="tier-price">KSh 0<small>/month</small></div><div class="tier-note">2 prompts per day</div><ul class="tier-list"><li class="good">2 generations/day</li><li class="good">All tools</li><li>No history</li></ul><button class="tier-btn">Current Plan</button></div>
+          <div class="tier-card" id="tc-starter"><div class="tier-name">Starter</div><div class="tier-price">KSh 199<small> one-time</small></div><div class="tier-note">5 prompts, no expiry</div><ul class="tier-list"><li class="good">5 generations (permanent)</li><li class="good">All tools</li><li>No PDF</li></ul><button class="tier-btn" onclick="openMpesa('Starter','199','one-time')">Pay via M-Pesa</button></div>
+          <div class="tier-card hot" id="tc-pro"><div class="tier-badge">Popular</div><div class="tier-name">Pro</div><div class="tier-price">KSh 800<small>/month</small></div><div class="tier-note">100 prompts per day</div><ul class="tier-list"><li class="good">100 generations/day</li><li class="good">30-day history</li><li class="good">PDF export</li></ul><button class="tier-btn" onclick="openMpesa('Pro','800','/month')">Pay via M-Pesa</button></div>
+          <div class="tier-card" id="tc-prem"><div class="tier-name">Premium</div><div class="tier-price">KSh 1,500<small>/month</small></div><div class="tier-note">Unlimited — fair use</div><ul class="tier-list"><li class="good">Unlimited</li><li class="good">Full history</li><li class="good">Priority support</li></ul><button class="tier-btn" onclick="openMpesa('Premium','1500','/month')">Pay via M-Pesa</button></div>
+        </div>
+        <div class="card-sm" style="max-width:380px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:.75rem;font-family:'Space Grotesk',sans-serif">Have a coupon code?</div>
+          <div style="display:flex;gap:.5rem"><input class="inp" type="text" placeholder="Enter coupon code..." id="coupon-inp" style="flex:1"><button class="btn btn-ghost btn-sm" onclick="applyCoupon()">Apply</button></div>
+          <div id="coupon-msg" style="display:none;font-size:12px;margin-top:.5rem;color:var(--green);font-weight:600"></div>
+        </div>
+      </div>
+
+      <!-- PAYMENT HISTORY -->
+      <div id="panel-payments" class="panel">
+        <div class="page-title">Payment History</div>
+        <div class="page-sub">All your M-Pesa transactions — receipts stored automatically</div>
+        <div class="card" style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Date</th><th>Plan</th><th>Amount</th><th>M-Pesa Ref</th><th>Status</th><th>Receipt</th></tr></thead>
+            <tbody id="payment-table">
+              <tr><td>Apr 10, 2025</td><td>Starter</td><td>KSh 199</td><td>QJK7X8WP2M</td><td><span class="pill pill-g">Paid</span></td><td><button class="btn btn-ghost btn-sm">Download</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg3);border-radius:var(--r);font-size:12px;color:var(--text2)">
+          Email receipts are automatically sent to your registered email after every successful payment.
+        </div>
+      </div>
+
+      <!-- REFER A FRIEND -->
+      <div id="panel-refer" class="panel">
+        <div class="page-title">Refer a Friend</div>
+        <div class="page-sub">Earn free prompts for every business you refer to Talim AI</div>
+        <div class="card" style="max-width:480px;margin-bottom:1rem">
+          <div style="font-size:14px;font-weight:700;margin-bottom:.5rem;font-family:'Space Grotesk',sans-serif">Your Referral Link</div>
+          <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+            <input class="inp" value="talim.ai/ref/JANE2025" readonly style="flex:1;background:var(--bg3);cursor:copy">
+            <button class="btn btn-teal btn-sm" onclick="this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;text-align:center">
+            <div style="background:var(--bg3);border-radius:var(--r);padding:.85rem"><div style="font-size:1.3rem;font-weight:700;color:var(--teal);font-family:'Space Grotesk',sans-serif">3</div><div style="font-size:11px;color:var(--text2)">Referrals</div></div>
+            <div style="background:var(--bg3);border-radius:var(--r);padding:.85rem"><div style="font-size:1.3rem;font-weight:700;color:var(--teal);font-family:'Space Grotesk',sans-serif">15</div><div style="font-size:11px;color:var(--text2)">Prompts Earned</div></div>
+            <div style="background:var(--bg3);border-radius:var(--r);padding:.85rem"><div style="font-size:1.3rem;font-weight:700;color:var(--teal);font-family:'Space Grotesk',sans-serif">KSh 0</div><div style="font-size:11px;color:var(--text2)">Cash Earned</div></div>
+          </div>
+        </div>
+        <div class="card-sm" style="max-width:480px;background:var(--tealbg);border-color:var(--tealbdr)">
+          <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:.4rem">How it works</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.9">
+            <div>1. Share your referral link with a business owner</div>
+            <div>2. They sign up using your link</div>
+            <div>3. You both get <strong style="color:var(--text)">5 bonus prompts</strong> when they pay for any plan</div>
           </div>
         </div>
       </div>
 
-      <!-- SETTINGS PANEL -->
-      <div id="dp-settings" class="dpanel">
-        <div class="dtitle">Settings</div>
-        <div class="dsub">Manage your account and preferences</div>
-        <div class="sett-section"><h4>Profile</h4>
-          <div class="sett-row"><div><div class="sett-lbl">Full Name</div></div><input class="dash-inp" value="Jane Wanjiku" style="width:180px;font-size:12px"></div>
-          <div class="sett-row"><div><div class="sett-lbl">Email</div></div><input class="dash-inp" value="jane@wanjiku.ke" style="width:200px;font-size:12px"></div>
-          <div class="sett-row"><div><div class="sett-lbl">Phone / WhatsApp</div></div><input class="dash-inp" value="0712345678" style="width:160px;font-size:12px"></div>
-          <div class="sett-row"><div><div class="sett-lbl">Business Name</div></div><input class="dash-inp" value="Wanjiku Electronics" style="width:190px;font-size:12px"></div>
-          <div class="sett-row"><div><div class="sett-lbl">Industry</div></div><select class="dash-sel" style="width:160px;font-size:12px"><option>Electronics</option><option>Fashion/Mitumba</option><option>Food</option><option>Beauty</option><option>Services</option><option>Agency</option></select></div>
+      <!-- SETTINGS -->
+      <div id="panel-settings" class="panel">
+        <div class="page-title">Account Settings</div>
+        <div class="page-sub">Manage your profile, preferences, and security</div>
+        <div class="sett-block"><h4>Profile Information</h4>
+          <div class="sett-row"><div><div class="sett-lbl">Full Name</div></div><input class="inp" value="Jane Wanjiku" style="width:190px;font-size:13px"></div>
+          <div class="sett-row"><div><div class="sett-lbl">Email</div></div><input class="inp" value="jane@wanjiku.ke" style="width:210px;font-size:13px"></div>
+          <div class="sett-row"><div><div class="sett-lbl">Phone / WhatsApp</div></div><input class="inp" value="0712345678" style="width:160px;font-size:13px"></div>
+          <div class="sett-row"><div><div class="sett-lbl">Business Name</div></div><input class="inp" value="Wanjiku Electronics" style="width:200px;font-size:13px"></div>
+          <div class="sett-row"><div><div class="sett-lbl">Industry</div></div><select class="sel" style="width:170px;font-size:13px"><option>Electronics</option><option>Fashion/Mitumba</option><option>Food & Restaurant</option><option>Beauty</option><option>Services</option></select></div>
         </div>
-        <div class="sett-section"><h4>Preferences</h4>
-          <div class="sett-row"><div><div class="sett-lbl">Email Notifications</div><div class="sett-sub">Usage summaries & tips</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-          <div class="sett-row"><div><div class="sett-lbl">Auto-save generations</div><div class="sett-sub">Save every output to history</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-          <div class="sett-row"><div><div class="sett-lbl">Default language</div></div><select class="dash-sel" style="width:140px;font-size:12px"><option>English</option><option>Kiswahili</option><option>Sheng</option></select></div>
-          <div class="sett-row"><div><div class="sett-lbl">Default tone</div></div><select class="dash-sel" style="width:140px;font-size:12px"><option>Professional</option><option>Persuasive</option><option>Funny</option><option>Urgent</option></select></div>
+        <div class="sett-block"><h4>Preferences</h4>
+          <div class="sett-row"><div><div class="sett-lbl">Email Notifications</div><div class="sett-sub">Usage summaries and tips</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="sett-row"><div><div class="sett-lbl">Auto-save generations</div><div class="sett-sub">Every output saved to history</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="sett-row"><div><div class="sett-lbl">Auto-renew subscription</div><div class="sett-sub">Renew automatically via M-Pesa</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+          <div class="sett-row"><div><div class="sett-lbl">WhatsApp Notifications</div><div class="sett-sub">Renewal reminders on WhatsApp</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
         </div>
-        <div style="display:flex;gap:.6rem"><button class="gen-btn">Save Changes</button><button class="btn-sm-act" style="padding:.6rem 1rem;color:var(--red);border-color:rgba(255,90,90,.3)">Delete Account</button></div>
+        <div class="sett-block"><h4>Security</h4>
+          <div class="sett-row"><div><div class="sett-lbl">Change Password</div></div><button class="btn btn-ghost btn-sm">Update Password</button></div>
+          <div class="sett-row"><div><div class="sett-lbl">Active Sessions</div><div class="sett-sub">1 device currently logged in</div></div><button class="btn btn-ghost btn-sm">Revoke All</button></div>
+        </div>
+        <div style="display:flex;gap:.65rem;flex-wrap:wrap">
+          <button class="btn btn-teal btn-sm" onclick="showAlert('Settings saved successfully!','ok')">Save Changes</button>
+          <button class="btn btn-danger btn-sm">Delete Account</button>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- ==================== SERVICES PAGE ==================== -->
-<div id="page-services" class="page">
-  <div style="max-width:1100px;margin:0 auto;padding:2rem 1.5rem">
-
-    <div class="dtitle" style="font-size:1.6rem;margin-bottom:.4rem">Professional Services</div>
-    <div class="dsub" style="margin-bottom:2rem;font-size:14px">Human expertise + AI tools — the complete marketing stack for Kenyan businesses</div>
-
-    <!-- POSTER & LOGO -->
-    <div class="service-box" style="margin-bottom:1.5rem">
-      <div class="service-tag">🎨 DESIGN SERVICES</div>
-      <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem">Poster & Logo Design by Professionals</h2>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:1rem">Need a custom poster or logo that <strong style="color:var(--text)">actually sells</strong>? Our designers create eye-catching business posters, menus, flyers, logos & branding materials tailored for the Kenyan market.</p>
-      <div class="service-items">
-        <span class="service-item">✓ Business Logos</span><span class="service-item">✓ Flyers & Posters</span><span class="service-item">✓ Restaurant Menus</span><span class="service-item">✓ Shop Banners</span><span class="service-item">✓ Social Media Graphics</span><span class="service-item">✓ Branding Kits</span><span class="service-item">✓ T-Shirt Designs</span><span class="service-item">✓ Business Cards</span>
+<!-- ===== ADMIN DASHBOARD ===== -->
+<div id="scr-admin" class="screen">
+  <div class="topbar">
+    <div class="logo"><div class="logo-mark" style="background:var(--dark)">A</div><span class="logo-name">Talim AI Admin</span></div>
+    <div class="topbar-nav">
+      <div class="user-pill"><div class="avatar" style="background:var(--dark)">AD</div><span>Admin</span></div>
+      <button class="tnav-btn" onclick="doLogout()">Log out</button>
+    </div>
+  </div>
+  <div class="main-layout">
+    <div class="sidebar">
+      <div class="sb-sec">
+        <div class="sb-lbl">Analytics</div>
+        <div class="sb-item active" id="asb-overview" onclick="showAPanel('overview')"><span class="sb-icon">📊</span>Overview</div>
+        <div class="sb-item" id="asb-users" onclick="showAPanel('users')"><span class="sb-icon">👥</span>Users<span class="sb-badge">312</span></div>
+        <div class="sb-item" id="asb-revenue" onclick="showAPanel('revenue')"><span class="sb-icon">💰</span>Revenue</div>
+        <div class="sb-item" id="asb-usage" onclick="showAPanel('usage')"><span class="sb-icon">⚡</span>AI Usage</div>
       </div>
-      <div class="service-btns">
-        <button class="btn-wa" onclick="openWA()">💬 WhatsApp: 0725 028 310</button>
-        <button class="btn-teal">Order Design Now</button>
+      <div class="sb-sec">
+        <div class="sb-lbl">Management</div>
+        <div class="sb-item" id="asb-subs" onclick="showAPanel('subs')"><span class="sb-icon">💳</span>Subscriptions</div>
+        <div class="sb-item" id="asb-payments" onclick="showAPanel('apayments')"><span class="sb-icon">📄</span>Payments</div>
+        <div class="sb-item" id="asb-content" onclick="showAPanel('content')"><span class="sb-icon">✏️</span>Content Controls</div>
+      </div>
+      <div style="margin-top:auto;padding:1rem;background:var(--bg3);border-radius:var(--r2)">
+        <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:.25rem">ADMIN ONLY</div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.5">This panel is restricted. Unauthorized access is logged.</div>
       </div>
     </div>
 
-    <!-- GMB SERVICE -->
-    <div class="service-box" style="margin-bottom:1.5rem">
-      <div class="service-tag">📍 GOOGLE MY BUSINESS</div>
-      <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem">Google My Business Growth Services</h2>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:1rem">We help Kenyan businesses rank locally on Google Maps — so when customers search <em style="color:var(--teal)">"best shop near me"</em>, you appear first.</p>
-      <div class="gmb-grid" style="margin-top:1rem">
-        <div class="gmb-item"><div class="gmb-icon">🗺️</div><h4>GMB Account Creation</h4><p>Full setup from scratch</p></div>
-        <div class="gmb-item"><div class="gmb-icon">⚙️</div><h4>Profile Optimization</h4><p>Keyword-rich, complete profile</p></div>
-        <div class="gmb-item"><div class="gmb-icon">📦</div><h4>Products & Services</h4><p>List all offerings correctly</p></div>
-        <div class="gmb-item"><div class="gmb-icon">📅</div><h4>Weekly Posts</h4><p>Fresh content each week</p></div>
-        <div class="gmb-item"><div class="gmb-icon">🔑</div><h4>Keyword Optimization</h4><p>Local Nairobi search terms</p></div>
-        <div class="gmb-item"><div class="gmb-icon">⭐</div><h4>Reviews Strategy</h4><p>Get 5-star reviews consistently</p></div>
-        <div class="gmb-item"><div class="gmb-icon">📈</div><h4>Maps Ranking Growth</h4><p>Climb into the local 3-pack</p></div>
-        <div class="gmb-item"><div class="gmb-icon">📊</div><h4>Monthly Reports</h4><p>Track views, calls & clicks</p></div>
-      </div>
-      <div class="service-btns" style="margin-top:1.25rem">
-        <button class="btn-teal" onclick="openWA()">Get Started — WhatsApp 0725 028 310</button>
-      </div>
-    </div>
+    <div class="main-content">
 
-    <!-- WEBSITE DESIGN -->
-    <div class="service-box" style="margin-bottom:1.5rem">
-      <div class="service-tag">💻 WEBSITE DESIGN & DEVELOPMENT</div>
-      <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:.6rem">Website Design & Development</h2>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:1rem">We build professional websites that convert visitors into customers — mobile-first, fast-loading, and built for the Kenyan market.</p>
-      <div class="service-items">
-        <span class="service-item">✓ Business Websites</span><span class="service-item">✓ Ecommerce Stores</span><span class="service-item">✓ Portfolio Sites</span><span class="service-item">✓ Booking Websites</span><span class="service-item">✓ Landing Pages</span>
-      </div>
-
-      <div class="quote-form">
-        <div style="font-size:14px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:1rem">Get a Free Quote</div>
-        <div class="form-grid">
-          <div><label class="f-label">Full Name *</label><input class="f-input" type="text" placeholder="Jane Wanjiku"></div>
-          <div><label class="f-label">Business Name *</label><input class="f-input" type="text" placeholder="Wanjiku Shop"></div>
-          <div><label class="f-label">Phone / WhatsApp *</label><input class="f-input" type="tel" placeholder="0712345678"></div>
-          <div><label class="f-label">Email *</label><input class="f-input" type="email" placeholder="jane@email.com"></div>
-          <div><label class="f-label">Project Type *</label><select class="f-input" id="proj-type"><option>Business Website</option><option>Ecommerce Store</option><option>Portfolio Site</option><option>Booking Website</option><option>Landing Page</option></select></div>
-          <div><label class="f-label">Budget (KSh) *</label><select class="f-input" id="budget"><option>Under KSh 15,000</option><option>KSh 15,000 – 30,000</option><option>KSh 30,000 – 60,000</option><option>KSh 60,000+</option></select></div>
-          <div class="form-full"><label class="f-label">Project Description *</label><textarea class="f-input" rows="3" placeholder="Describe your business and what you need on the website..."></textarea></div>
+      <!-- OVERVIEW -->
+      <div id="apanel-overview" class="panel show">
+        <div class="page-title">Admin Overview</div>
+        <div class="page-sub">Business metrics — updated in real-time</div>
+        <div class="metric-grid" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))">
+          <div class="metric-card"><div class="metric-l">Total Users</div><div class="metric-v">312</div><div class="metric-ch up">↑ 24 this week</div></div>
+          <div class="metric-card"><div class="metric-l">Paid Users</div><div class="metric-v">58</div><div class="metric-ch up">↑ 7 this week</div></div>
+          <div class="metric-card"><div class="metric-l">MRR</div><div class="metric-v" style="font-size:1.1rem">KSh 46,200</div><div class="metric-ch up">↑ KSh 3,800</div></div>
+          <div class="metric-card"><div class="metric-l">AI Generations</div><div class="metric-v">5,841</div><div class="metric-ch up">↑ 412 today</div></div>
+          <div class="metric-card"><div class="metric-l">Conversion</div><div class="metric-v">18.6%</div><div class="metric-ch up">↑ 1.2%</div></div>
+          <div class="metric-card"><div class="metric-l">Churn Rate</div><div class="metric-v">3.8%</div><div class="metric-ch dn">↓ 0.4%</div></div>
         </div>
-        <div id="quote-msg" style="display:none;margin-top:.6rem;padding:.6rem;border-radius:var(--r);font-size:12px;font-weight:600;background:rgba(34,199,138,.1);border:1px solid rgba(34,199,138,.25);color:var(--green)">✓ Quote request sent! We'll contact you within 24 hours via WhatsApp.</div>
-        <button class="gen-btn" style="margin-top:.85rem" onclick="submitQuote()">Send Quote Request →</button>
-        <div style="font-size:10px;color:var(--text3);margin-top:.5rem">Sent to: Alexmwenda72@gmail.com · Response within 24hrs</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.85rem">
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Revenue by Plan</div><div id="rev-chart"></div></div>
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Top AI Tools</div><div id="tool-chart"></div></div>
+          <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:.85rem;font-family:'Space Grotesk',sans-serif">Recent M-Pesa Payments</div>
+            <div style="font-size:12px;color:var(--text2);line-height:2.2">
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>Jane W. — Starter</span><span style="color:var(--green);font-weight:600">KSh 199 ✓</span></div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>Peter O. — Premium</span><span style="color:var(--green);font-weight:600">KSh 1,500 ✓</span></div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.1rem 0"><span>Aisha M. — Pro</span><span style="color:var(--green);font-weight:600">KSh 800 ✓</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.1rem 0"><span>Hassan A. — Starter</span><span style="color:var(--red);font-weight:600">KSh 199 ✗ Failed</span></div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
+      <!-- USERS -->
+      <div id="apanel-users" class="panel">
+        <div class="page-title">User Management</div>
+        <div class="page-sub">All registered users — search, filter, manage plans</div>
+        <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap">
+          <input class="inp" type="text" placeholder="Search by name or email..." style="flex:1;min-width:200px">
+          <select class="sel" style="width:130px"><option>All Plans</option><option>Free</option><option>Starter</option><option>Pro</option><option>Premium</option></select>
+          <select class="sel" style="width:130px"><option>All Status</option><option>Active</option><option>Trial</option><option>Churned</option></select>
+        </div>
+        <div class="card" style="overflow-x:auto;padding:0">
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Plan</th><th>Gens</th><th>Joined</th><th>Renewal</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:600;color:var(--text);font-size:13px">Jane Wanjiku</div><div style="font-size:11px;color:var(--text3)">jane@wanjiku.ke · 0712345678</div></td><td><span class="pill pill-t">Starter</span></td><td>47</td><td>Apr 10</td><td style="color:var(--text3)">N/A</td><td><span class="pill pill-g">Active</span></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;color:var(--text);font-size:13px">Peter Otieno</div><div style="font-size:11px;color:var(--text3)">peter@gmail.com · 0722111222</div></td><td><span class="pill pill-p">Premium</span></td><td>1,247</td><td>Mar 2</td><td>May 2</td><td><span class="pill pill-g">Active</span></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;color:var(--text);font-size:13px">Aisha Mohamed</div><div style="font-size:11px;color:var(--text3)">aisha@salon.ke · 0733444555</div></td><td><span class="pill pill-t">Pro</span></td><td>389</td><td>Mar 15</td><td>Apr 15</td><td><span class="pill pill-a">Renewing</span></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;color:var(--text);font-size:13px">Mary Njeri</div><div style="font-size:11px;color:var(--text3)">mary@shop.ke · 0700123456</div></td><td><span style="background:var(--bg3);color:var(--text3);font-size:10px;font-weight:700;padding:.2rem .55rem;border-radius:999px">Free</span></td><td>3</td><td>Apr 18</td><td style="color:var(--text3)">—</td><td><span class="pill pill-a">Trial</span></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+              <tr><td><div style="font-weight:600;color:var(--text);font-size:13px">Hassan Ali</div><div style="font-size:11px;color:var(--text3)">hassan@store.ke · 0744987654</div></td><td><span class="pill pill-t">Starter</span></td><td>5</td><td>Apr 12</td><td style="color:var(--text3)">N/A</td><td><span class="pill pill-r">Churned</span></td><td><button class="btn btn-ghost btn-sm">Manage</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- REVENUE -->
+      <div id="apanel-revenue" class="panel">
+        <div class="page-title">Revenue Dashboard</div>
+        <div class="page-sub">M-Pesa collections and subscription revenue</div>
+        <div class="metric-grid">
+          <div class="metric-card"><div class="metric-l">MRR</div><div class="metric-v" style="font-size:1.1rem">KSh 46,200</div><div class="metric-ch up">↑ 9.1% vs last month</div></div>
+          <div class="metric-card"><div class="metric-l">Total Revenue</div><div class="metric-v" style="font-size:1.1rem">KSh 124,800</div><div class="metric-ch up">All time</div></div>
+          <div class="metric-card"><div class="metric-l">Avg Revenue/User</div><div class="metric-v" style="font-size:1.2rem">KSh 796</div><div class="metric-ch up">↑ KSh 42</div></div>
+          <div class="metric-card"><div class="metric-l">Failed Payments</div><div class="metric-v" style="font-size:1.4rem;color:var(--red)">4</div><div class="metric-ch dn">This month</div></div>
+        </div>
+        <div class="card" style="overflow-x:auto;padding:0">
+          <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif">Revenue by Plan</div>
+          <table class="admin-table">
+            <thead><tr><th>Plan</th><th>Users</th><th>Unit Price</th><th>MRR</th><th>% of Total</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill pill-t">Starter</span></td><td>21 (one-time)</td><td>KSh 199</td><td>KSh 4,179</td><td>9%</td></tr>
+              <tr><td><span class="pill pill-t">Pro</span></td><td>22</td><td>KSh 800</td><td>KSh 17,600</td><td>38%</td></tr>
+              <tr><td><span class="pill pill-p">Premium</span></td><td>15</td><td>KSh 1,500</td><td>KSh 22,500</td><td>49%</td></tr>
+              <tr><td><span style="background:var(--bg3);color:var(--text3);font-size:10px;font-weight:700;padding:.2rem .55rem;border-radius:999px">Free</span></td><td>254</td><td>—</td><td>KSh 0</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- AI USAGE -->
+      <div id="apanel-usage" class="panel">
+        <div class="page-title">AI Usage Reports</div>
+        <div class="page-sub">API token consumption and generation breakdown</div>
+        <div class="metric-grid">
+          <div class="metric-card"><div class="metric-l">Total Generations</div><div class="metric-v">5,841</div><div class="metric-ch up">↑ 412 today</div></div>
+          <div class="metric-card"><div class="metric-l">Tokens Used</div><div class="metric-v" style="font-size:1.1rem">2.4M</div><div class="metric-ch" style="color:var(--text2)">This month</div></div>
+          <div class="metric-card"><div class="metric-l">API Cost</div><div class="metric-v" style="font-size:1.1rem">$12.40</div><div class="metric-ch up">Low — optimized</div></div>
+          <div class="metric-card"><div class="metric-l">Avg per User</div><div class="metric-v">18.7</div><div class="metric-ch" style="color:var(--text2)">gens/month</div></div>
+        </div>
+        <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">Tool Usage Breakdown</div><div id="usage-chart"></div></div>
+      </div>
+
+      <!-- SUBSCRIPTIONS -->
+      <div id="apanel-subs" class="panel">
+        <div class="page-title">Subscription Management</div>
+        <div class="page-sub">Manage and override user subscription tiers</div>
+        <div class="card" style="overflow-x:auto;padding:0">
+          <table class="admin-table">
+            <thead><tr><th>User</th><th>Current Plan</th><th>Started</th><th>Expires</th><th>Auto-Renew</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td>Jane Wanjiku</td><td><span class="pill pill-t">Starter (one-time)</span></td><td>Apr 10</td><td style="color:var(--text3)">Never expires</td><td style="color:var(--text3)">N/A</td><td><button class="btn btn-ghost btn-sm">Override</button></td></tr>
+              <tr><td>Peter Otieno</td><td><span class="pill pill-p">Premium</span></td><td>Mar 2</td><td style="color:var(--amber)">May 2</td><td><span class="pill pill-g">On</span></td><td><button class="btn btn-ghost btn-sm">Override</button></td></tr>
+              <tr><td>Aisha Mohamed</td><td><span class="pill pill-t">Pro</span></td><td>Mar 15</td><td style="color:var(--red)">Apr 15 (expired)</td><td><span class="pill pill-r">Off</span></td><td><button class="btn btn-ghost btn-sm">Override</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADMIN PAYMENTS -->
+      <div id="apanel-payments" class="panel">
+        <div class="page-title">M-Pesa Payments</div>
+        <div class="page-sub">All transactions — verified via Daraja API</div>
+        <div class="card" style="overflow-x:auto;padding:0">
+          <table class="admin-table">
+            <thead><tr><th>Date & Time</th><th>User</th><th>Plan</th><th>Amount</th><th>M-Pesa Ref</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td style="white-space:nowrap">Apr 20, 2025 · 7:34 PM</td><td>Jane Wanjiku</td><td>Starter</td><td>KSh 199</td><td style="font-family:monospace">QJK7X8WP2M</td><td><span class="pill pill-g">Verified</span></td></tr>
+              <tr><td style="white-space:nowrap">Apr 18, 2025 · 2:12 PM</td><td>Peter Otieno</td><td>Premium</td><td>KSh 1,500</td><td style="font-family:monospace">PLK4M2NW9X</td><td><span class="pill pill-g">Verified</span></td></tr>
+              <tr><td style="white-space:nowrap">Apr 15, 2025 · 9:05 AM</td><td>Aisha Mohamed</td><td>Pro</td><td>KSh 800</td><td style="font-family:monospace">RMX5T7QJ3K</td><td><span class="pill pill-g">Verified</span></td></tr>
+              <tr><td style="white-space:nowrap">Apr 12, 2025 · 11:48 AM</td><td>Hassan Ali</td><td>Starter</td><td>KSh 199</td><td style="font-family:monospace">—</td><td><span class="pill pill-r">Failed</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CONTENT CONTROLS -->
+      <div id="apanel-content" class="panel">
+        <div class="page-title">Content Controls</div>
+        <div class="page-sub">Manage AI tool availability and system prompts</div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:700;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">Tool Availability</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border)"><span style="font-size:13px">WhatsApp Message Generator</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border)"><span style="font-size:13px">Instagram Caption Writer</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border)"><span style="font-size:13px">GMB Post Generator</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--border)"><span style="font-size:13px">SMS Campaign (Pro+)</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0"><span style="font-size:13px">Hashtag Generator</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:.85rem">
+          <div style="font-size:13px;font-weight:700;margin-bottom:1rem;font-family:'Space Grotesk',sans-serif">Daily Limits Override</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;font-size:13px">
+            <div><label class="label">Free</label><input class="inp" type="number" value="2"></div>
+            <div><label class="label">Starter (lifetime)</label><input class="inp" type="number" value="5"></div>
+            <div><label class="label">Pro (daily)</label><input class="inp" type="number" value="100"></div>
+            <div><label class="label">Premium (daily)</label><input class="inp" type="number" value="9999"></div>
+          </div>
+          <button class="btn btn-teal btn-sm" style="margin-top:1rem">Save Limits</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- ==================== ADMIN PANEL ==================== -->
-<div id="page-admin" class="page">
-  <div style="padding:1.25rem;max-width:1100px;margin:0 auto">
-    <div class="dtitle" style="margin-bottom:.25rem">Admin Dashboard</div>
-    <div class="dsub" style="margin-bottom:1.25rem">Talim AI · Business Overview</div>
-
-    <div class="metric-row" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
-      <div class="metric"><div class="metric-l">Total Users</div><div class="metric-v">312</div><div class="metric-ch up">↑ 24 this week</div></div>
-      <div class="metric"><div class="metric-l">Paid Users</div><div class="metric-v">58</div><div class="metric-ch up">↑ 7 this week</div></div>
-      <div class="metric"><div class="metric-l">MRR</div><div class="metric-v" style="font-size:1.1rem">KSh 46,200</div><div class="metric-ch up">↑ KSh 3,800</div></div>
-      <div class="metric"><div class="metric-l">Generations</div><div class="metric-v">5,841</div><div class="metric-ch up">↑ 412 today</div></div>
-      <div class="metric"><div class="metric-l">Conversion</div><div class="metric-v">18.6%</div><div class="metric-ch up">↑ 1.2%</div></div>
-      <div class="metric"><div class="metric-l">Churn</div><div class="metric-v">3.8%</div><div class="metric-ch dn">↓ 0.4%</div></div>
+<!-- ===== M-PESA MODAL ===== -->
+<div class="modal-overlay" id="mpesa-overlay" onclick="if(event.target===this)closeMpesa()">
+  <div class="modal">
+    <div class="mpesa-badge">🟢 M-PESA Payment</div>
+    <div class="modal-title" id="mpesa-modal-title">Pay via M-Pesa STK Push</div>
+    <div class="modal-sub" id="mpesa-modal-sub">Plan: Starter — KSh 199 (one-time)</div>
+    <div class="mpesa-steps">
+      <div class="mpesa-step"><div class="step-num">1</div><div>Enter your M-Pesa phone number — an STK push will be sent instantly to your phone.</div></div>
+      <div class="mpesa-step"><div class="step-num">2</div><div>Open M-Pesa on your phone and enter your PIN when prompted.</div></div>
+      <div class="mpesa-step"><div class="step-num">3</div><div>Your account upgrades automatically within 30 seconds of successful payment.</div></div>
     </div>
-
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem;margin-bottom:.75rem">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem">
-        <div style="font-size:14px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif">Recent Users</div>
-        <div style="display:flex;gap:.5rem"><input class="dash-inp" type="text" placeholder="Search..." style="width:160px;font-size:11px"><select class="dash-sel" style="font-size:11px;width:110px"><option>All Plans</option><option>Starter</option><option>Pro</option><option>Unlimited</option><option>Agency</option></select></div>
-      </div>
-      <div style="overflow-x:auto">
-      <table class="admin-table">
-        <thead><tr><th>User</th><th>Plan</th><th>Generations</th><th>Joined</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Jane Wanjiku</div><div style="font-size:10px;color:var(--text3)">jane@wanjiku.ke</div></td><td><span class="pill t">Starter</span></td><td>47</td><td>Apr 10</td><td><span class="pill g">Active</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Peter Otieno</div><div style="font-size:10px;color:var(--text3)">peter@gmail.com</div></td><td><span class="pill a">Unlimited</span></td><td>1,247</td><td>Mar 2</td><td><span class="pill g">Active</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Aisha Mohamed</div><div style="font-size:10px;color:var(--text3)">aisha@salon.ke</div></td><td><span class="pill t">Pro</span></td><td>389</td><td>Mar 15</td><td><span class="pill g">Active</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Kamau Digital</div><div style="font-size:10px;color:var(--text3)">info@kamau.co.ke</div></td><td><span class="pill p">Agency</span></td><td>2,891</td><td>Jan 20</td><td><span class="pill g">Active</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Mary Njeri</div><div style="font-size:10px;color:var(--text3)">mary@shop.ke</div></td><td><span class="pill" style="background:var(--bg4);color:var(--text3)">Free</span></td><td>3</td><td>Apr 18</td><td><span class="pill a">Trial</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-          <tr><td><div style="font-weight:600;color:var(--text);font-size:12px">Hassan Ali</div><div style="font-size:10px;color:var(--text3)">hassan@store.ke</div></td><td><span class="pill t">Starter</span></td><td>5</td><td>Apr 12</td><td><span class="pill r">Churned</span></td><td><button class="btn-sm-act" style="font-size:10px;padding:.25rem .5rem">View</button></td></tr>
-        </tbody>
-      </table>
-      </div>
+    <div class="field"><label class="label">M-Pesa Phone Number</label><input class="inp" id="mpesa-phone" type="tel" placeholder="e.g. 0712345678 or 0725028310"></div>
+    <div class="field"><label class="label">M-Pesa Amount</label><input class="inp" id="mpesa-amount-show" type="text" readonly style="background:var(--bg3)"></div>
+    <div style="background:var(--bg3);border-radius:var(--r);padding:.75rem;font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:1rem">
+      Paybill: <strong style="color:var(--text)">400200</strong> · Account: <strong style="color:var(--text)">TALIM-AI</strong> · Merchant: Talim AI Ltd
     </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.75rem">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem">
-        <div style="font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.85rem">Top Tools Used</div>
-        <div id="ac-tools"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem">
-        <div style="font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.85rem">Revenue by Plan</div>
-        <div id="ac-rev"></div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem">
-        <div style="font-size:13px;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:.85rem">Recent Payments (M-Pesa)</div>
-        <div style="font-size:11px;color:var(--text2);line-height:2">
-          <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.2rem 0"><span>Jane W. — Starter</span><span style="color:var(--green)">KSh 199 ✓</span></div>
-          <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.2rem 0"><span>Peter O. — Unlimited</span><span style="color:var(--green)">KSh 1,500 ✓</span></div>
-          <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:.2rem 0"><span>Aisha M. — Pro</span><span style="color:var(--green)">KSh 800 ✓</span></div>
-          <div style="display:flex;justify-content:space-between;padding:.2rem 0"><span>Hassan A. — Starter</span><span style="color:var(--red)">KSh 199 ✗ Failed</span></div>
-        </div>
-      </div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:.5rem">
+      <button class="btn btn-teal" id="mpesa-pay-btn" onclick="processMpesa()"><span class="spin-sm" id="mpesa-spin"></span>Send STK Push</button>
+      <button class="btn btn-ghost" onclick="closeMpesa()">Cancel</button>
     </div>
+    <div class="pay-status" id="pay-status"></div>
   </div>
 </div>
 
-</div>
+<!-- ===== FLOATING BUTTON ===== -->
+<button onclick="openWA()" style="position:fixed;bottom:1.25rem;right:1.25rem;z-index:300;background:#25D366;color:#fff;border:none;cursor:pointer;border-radius:999px;padding:.7rem 1.1rem;font-size:13px;font-weight:700;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:.45rem;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all .2s">
+  WhatsApp: 0725 028 310
+</button>
+
+<!-- ===== TOAST ===== -->
+<div id="toast" style="position:fixed;top:1rem;right:1rem;z-index:999;background:var(--dark);color:#fff;padding:.75rem 1.25rem;border-radius:var(--r);font-size:13px;font-weight:500;display:none;animation:slideIn .3s ease;max-width:300px"></div>
 
 <script>
-let curTool='whatsapp', curTone='professional', curLang='english';
-
-const HASHTAGS = {
-  fashion:['#KenyaFashion','#NairobiStyle','#AffordableFashionKE','#MitubaKE','#NairobiMitumba','#KenyaOutfits','#GikombaDeals','#TrendyKE','#StyleNairobi','#FashionKenya'],
-  beauty:['#NairobiBeauty','#KenyaSalon','#HairNairobi','#BeautyKE','#SkinCareKenya','#NailsNairobi','#MakeupKE','#SalonNairobi','#BeautyTipsKenya','#GlowKE'],
-  food:['#NairobiFood','#KenyaEats','#FoodDealsKenya','#NairobiFoodie','#KenyanFood','#NairobiRestaurant','#FoodKE','#EatNairobi','#LocalFoodKenya','#NairobishFood'],
-  hardware:['#HardwareKenya','#ConstructionKE','#BuildingMaterialsKenya','#NairobiHardware','#NduthuKE','#ContractorsKenya','#HomeImprovementKE','#PlumbingKenya','#ElectricalKenya','#RoofingKenya'],
-  electronics:['#NairobiTech','#PhonesKenya','#DealsKenya','#ElectronicsNairobi','#GadgetsKE','#TechDealsNairobi','#KenyaSmartphones','#LaptopsKenya','#iPhone14Kenya','#AffordableTechKE'],
-  realestate:['#NairobiHomes','#KenyaProperty','#RentalsKE','#HousesNairobi','#KenyaRealEstate','#ApartmentsNairobi','#LandKE','#PropertyKE','#NairobiRentals','#BuyPropertyKenya'],
-  printing:['#PrintingNairobi','#PrintingKenya','#BrandingKE','#PrintingServices','#PostersNairobi','#BannersKenya','#FlexPrinting','#GraphicDesignKE','#MarketingMaterialsKE','#PrintDealsKE'],
-  events:['#NairobiEvents','#KenyaEvents','#EventsKE','#NairobiParty','#WeddingKenya','#CorporateEventsKE','#EventPlannerNairobi','#NairobiNightlife','#ConcertKE','#NairobiEntertainment'],
-  general:['#KenyaBusiness','#NairobiShopping','#BiasharaKenya','#SMEKenya','#KenyanSME','#NairobiDeals','#ShopKenya','#BusinessNairobi','#DealsKenya','#SupportLocalKE']
+const USERS_DB = {
+  'jane@demo.com': {pw:'demo123',name:'Jane Wanjiku',phone:'0712345678',biz:'Wanjiku Electronics',plan:'free',prompts_left:0,prompts_max:2,joined:'Apr 10, 2025',role:'user'},
+  'admin@talim.ai': {pw:'admin2025',name:'Admin',phone:'0725028310',biz:'Talim AI',plan:'premium',prompts_left:999,prompts_max:999,joined:'Jan 1, 2025',role:'admin'}
 };
-
-const OUTPUTS = {
-  whatsapp:{
-    professional:`👋 Hello [Name],
-
-We wanted to let you know that we have exactly what you've been looking for — [PRODUCT] at an unbeatable price.
-
-✅ Verified quality
-✅ Warranty included  
-✅ M-Pesa accepted
-✅ Same-day Nairobi delivery
-
-Reply "ORDER" to this message to reserve yours now. Limited stock available.
-
-Wanjiku Electronics — Trusted by 300+ Nairobi customers 📱`,
-    persuasive:`🔥 THIS IS THE ONE YOU'VE BEEN WAITING FOR 🔥
-
-[PRODUCT] — Now at KSh 85,000
-
-While everyone else is still "thinking about it" — smart buyers are already placing their orders. Don't be the person who missed out and paid full price next week.
-
-📦 Ready to ship TODAY
-💳 M-Pesa | Cash accepted
-🚀 Nairobi delivery = same day
-
-Reply NOW → type "MINE" and we'll sort you out immediately ⚡`,
-    funny:`Okay so picture this... 😂
-
-You're scrolling, minding your business, when suddenly — [PRODUCT] appears at a price that makes you do a double-take 👀
-
-"Is this real?" YES.
-"Is it in good condition?" EXTREMELY.  
-"Should I order?" 
-
-*reader, they ordered*
-
-DM us before someone else does 🏃‍♂️💨 KSh 85,000 only!`,
-    urgent:`⚠️ LAST CHANCE ALERT ⚠️
-
-[PRODUCT] — KSh 85,000
-
-We have 2 units remaining as of right now.
-
-Last time we posted this, it sold out in 4 hours. We're not restocking at this price.
-
-⏰ This offer ends TONIGHT
-📲 WhatsApp: 0725 028 310
-
-Don't sleep on this. Seriously.`
-  },
-  instagram:{
-    english:`Fresh stock imefika! ✨
-
-[PRODUCT] — quality you can see, price that makes sense.
-
-We know Nairobi buyers want the best value without the drama. That's exactly what we offer — verified products, fast delivery, and zero regrets.
-
-📦 Order today → delivered same day in Nairobi
-💳 M-Pesa accepted
-⭐ 300+ happy customers
-
-DM us "ORDER" or tap the link in bio 👆
-
-#NairobiTech #DealsKenya #KenyaShopping #NairobiShopping`,
-    swahili:`Habari ya leo! 👋✨
-
-[PRODUCT] inapatikana sasa — bei poa, ubora wa juu!
-
-Sisi ni wauza wa kuaminiwa hapa Nairobi. Bidhaa zetu ni halisi, na tunaleta delivery ndani ya Nairobi same day.
-
-📦 Order leo, pata kesho asubuhi
-💳 Tunapokea M-Pesa
-⭐ Wateja 300+ wanaridhika
-
-DM "NATAKA" au bonyeza link bio 👆
-
-#NairobiDeals #BiasharaKenya #KenyaShopping`
-  },
-  hashtag:{
-    electronics:`Top Hashtags for Electronics Niche — Kenya 🇰🇪
-
-Tier 1 — High Volume (100K+ posts):
-#NairobiTech #PhonesKenya #DealsKenya #ElectronicsNairobi
-
-Tier 2 — Mid Volume (10K–100K posts):  
-#GadgetsKE #TechDealsNairobi #KenyaSmartphones #LaptopsKenya
-
-Tier 3 — Niche/Local (under 10K — best for reach):
-#iPhone14Kenya #AffordableTechKE #NairobiCBDTech #PhoneRepairNairobi
-
-💡 Pro tip: Mix all 3 tiers for maximum reach.
-Use 5–8 hashtags per post on Instagram for best results.`,
-    fashion:`Top Hashtags for Fashion/Mitumba — Kenya 🇰🇪
-
-Tier 1 — High Volume:
-#KenyaFashion #NairobiStyle #NairobiMitumba #AffordableFashionKE
-
-Tier 2 — Mid Volume:
-#MitubaKE #GikombaDeals #TrendyKE #StyleNairobi
-
-Tier 3 — Local Niche:
-#FashionKenya #NairobiFashionista #MitumbaFinds #BudgetFashionKE`
-  },
-  gmb:{
-    professional:`📍 Google My Business Post — [Business Name]
-
-HEADLINE:
-Best [Service] in [Location], Nairobi — [Business Name]
-
-DESCRIPTION:
-Looking for quality [service] in [Location]? [Business Name] has been serving Nairobi residents for [X] years with professional results and customer satisfaction you can count on.
-
-✅ [Key Service 1]
-✅ [Key Service 2]  
-✅ [Key Service 3]
-💳 M-Pesa accepted | Open Mon–Sat 8AM–7PM
-
-📞 Call/WhatsApp: 0725 028 310
-
-LOCAL KEYWORDS: "[Business type] in [Location] Nairobi", "best [service] near me", "affordable [service] Nairobi"
-
-HASHTAGS: #NairobiServices #[Location]Business #KenyaLocal #GoogleMyBusiness`,
-    location:`🗺️ GMB POST — LOCAL SEO OPTIMIZED
-
-Headline: "Affordable [service] in Embakasi — [Name]"
-
-Post Body:
-Are you searching for "[service] near me" in Embakasi? Look no further — [Business Name] is your trusted local [service provider] with fast service and Nairobi-friendly pricing.
-
-We serve: Embakasi, Umoja, Donholm, Utawala, Fedha & surroundings.
-
-📍 Visit us at: [Your Address]
-📞 WhatsApp: 0725 028 310
-⏰ Open 7 days a week
-
-CTA: Book Now / Call Us / Get Directions
-
-KEYWORDS TO TARGET: "best [service] Embakasi", "[service] near me Nairobi", "[service] Embakasi prices"`
-  },
-  offer:`🎉 WEEKEND SPECIAL — ENDS SUNDAY MIDNIGHT 🎉
-
-[PRODUCT] — KSh 85,000
-
-❌ Was: KSh 95,000
-✅ NOW: KSh 85,000 (Save KSh 10,000!)
-
-This is a genuine flash sale — not a "sale" that runs forever.
-
-Here's the deal:
-→ 3 units only at this price
-→ First-come, first-served
-→ Offer ends: Sunday 11:59PM
-
-How to claim:
-1️⃣ Reply "WEEKEND DEAL" on WhatsApp
-2️⃣ We confirm your unit
-3️⃣ Pay via M-Pesa & receive same day
-
-📲 0725 028 310
-📍 Nairobi CBD | Delivery available`,
-  product:`[PRODUCT NAME]
-
-Stop settling for less when the best option is right here.
-
-[Product] gives you [primary benefit] — perfect for [target use case]. Whether you're [use case 1] or [use case 2], this delivers results without compromising on quality.
-
-What you get:
-• [Specific feature & benefit 1]
-• [Specific feature & benefit 2]
-• [Specific feature & benefit 3]
-• 3-month warranty included
-• M-Pesa payment accepted
-
-Price: KSh 85,000
-📦 Nairobi delivery: Same day
-📞 Order via WhatsApp: 0725 028 310
-
-✅ Verified quality · Trusted by 300+ customers`,
-  bio:`📱 [Business Name] | Nairobi Kenya
-
-Your trusted [product/service] provider in Nairobi — quality guaranteed, prices that make sense, and service that keeps customers coming back.
-
-What we offer:
-✅ [Service/Product 1]
-✅ [Service/Product 2]
-✅ M-Pesa accepted
-✅ Delivery across Nairobi
-✅ [X]+ happy customers
-
-📍 [Location], Nairobi
-⏰ Mon–Sat, 8AM–7PM
-📞 WhatsApp: 0725 028 310`,
-  rewrite:`✨ UPGRADED VERSION:
-
-[Original content rewritten with stronger hook, cleaner structure, and a compelling CTA]
-
-Changes made:
-→ Stronger opening hook (first 3 words decide if they read on)
-→ Added social proof element
-→ Clearer CTA with specific action
-→ Added urgency without being spammy
-→ Optimized for mobile reading (shorter paragraphs)
-
-Original word count: ~80 words → Optimized: ~65 words
-Readability: ↑ 40% improvement`,
-  tone:`🎭 TONE TRANSFORMATION COMPLETE
-
-Your content, rewritten in [selected tone]:
-
-PROFESSIONAL VERSION:
-We are pleased to offer [product] at a competitive price point. Our commitment to quality and customer satisfaction ensures you receive exceptional value.
-
-PERSUASIVE VERSION:
-Here's the truth — [product] at this price won't last. Smart buyers move fast. Will you be one of them?
-
-FUNNY VERSION:
-Your wallet called. It says it's ready. Your procrastination is the only thing standing between you and this deal 😂`,
-  sms:`SMS CAMPAIGN COPY:
-
-TALIM AI: [Business] — [Product] now at KSh 85K! Original+warranty. 3 units left. WhatsApp 0725028310 now. STOP opt out.
-
-[Character count: 118/160 — within single SMS limit ✓]
-
-Batch schedule suggestion:
-• Send 1: Thursday 7PM (pre-weekend excitement)
-• Send 2: Saturday 10AM (peak shopping day)
-• Send 3: Sunday 4PM (urgency/last chance)`
-};
-
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  const map={landing:0,dashboard:1,services:2,admin:3};
-  document.querySelectorAll('.ntab')[map[id]]?.classList.add('active');
-  if(id==='admin') buildAdminCharts();
+let SESSION = null;
+let curTool='wa', curTone='professional', curLang='en';
+let mpesaPlan='', mpesaAmt='', mpesaFreq='';
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));
+  document.getElementById(id)?.classList.add('show');
+  window.scrollTo(0,0);
 }
 
-function showDash(id){
-  document.querySelectorAll('.dpanel').forEach(p=>p.classList.remove('active'));
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
   document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
-  document.getElementById('dp-'+id)?.classList.add('active');
+  document.getElementById('panel-'+id)?.classList.add('show');
   document.getElementById('sb-'+id)?.classList.add('active');
 }
 
-function selectTool(tool, emoji, name, el){
+function showAPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
+  document.getElementById('apanel-'+id)?.classList.add('show');
+  document.getElementById('asb-'+id)?.classList.add('active');
+  if(id==='overview') buildCharts();
+  if(id==='usage') buildUsageChart();
+}
+
+async function doSignup(){
+  const name=document.getElementById('su-name').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const phone=document.getElementById('su-phone').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  const el=document.getElementById('signup-alert');
+  el.innerHTML='';
+  if(!name||!email||!pass){el.innerHTML='<div class="alert alert-err">Please fill in all required fields.</div>';return;}
+  if(pass.length<6){el.innerHTML='<div class="alert alert-err">Password must be at least 6 characters.</div>';return;}
+  if(!document.getElementById('su-terms').checked){el.innerHTML='<div class="alert alert-err">Please accept the Terms of Service.</div>';return;}
+  const btn=document.getElementById('su-btn');
+  const spin=document.getElementById('su-spin');
+  btn.disabled=true;spin.style.display='block';spin.style.animation='spin .6s linear infinite';
+  await new Promise(r=>setTimeout(r,1200));
+  USERS_DB[email]={pw:pass,name,phone,biz:document.getElementById('su-biz').value,plan:'free',prompts_left:2,prompts_max:2,joined:'Today',role:'user'};
+  SESSION={email,name,plan:'free',prompts_left:2,prompts_max:2,role:'user'};
+  btn.disabled=false;spin.style.display='none';
+  el.innerHTML='<div class="alert alert-ok">Account created! Logging you in...</div>';
+  await new Promise(r=>setTimeout(r,800));
+  loadUserDash();
+}
+
+async function doLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pass=document.getElementById('li-pass').value;
+  const el=document.getElementById('login-alert');
+  el.innerHTML='';
+  if(!email||!pass){el.innerHTML='<div class="alert alert-err">Enter your email and password.</div>';return;}
+  const btn=document.getElementById('li-btn');
+  const spin=document.getElementById('li-spin');
+  btn.disabled=true;spin.style.display='block';spin.style.animation='spin .6s linear infinite';
+  await new Promise(r=>setTimeout(r,1000));
+  btn.disabled=false;spin.style.display='none';
+  const u=USERS_DB[email];
+  if(!u||u.pw!==pass){el.innerHTML='<div class="alert alert-err">Invalid email or password. Try the demo buttons below.</div>';return;}
+  SESSION={email,name:u.name,plan:u.plan,prompts_left:u.prompts_left,prompts_max:u.prompts_max,role:u.role};
+  if(u.role==='admin') loadAdminDash();
+  else loadUserDash();
+}
+
+function demoLogin(role){
+  if(role==='admin'){
+    SESSION={email:'admin@talim.ai',name:'Admin',plan:'premium',prompts_left:999,prompts_max:999,role:'admin'};
+    loadAdminDash();
+  } else {
+    SESSION={email:'jane@demo.com',name:'Jane Wanjiku',plan:'free',prompts_left:0,prompts_max:2,role:'user'};
+    loadUserDash();
+  }
+}
+
+function doLogout(){
+  SESSION=null;
+  goTo('scr-landing');
+}
+
+function loadUserDash(){
+  if(!SESSION||SESSION.role!=='user'&&SESSION.role!=='free'){
+    if(SESSION&&SESSION.role==='admin'){loadAdminDash();return;}
+  }
+  const n=SESSION.name.split(' ')[0];
+  document.getElementById('welcome-title').textContent='Good day, '+n+'!';
+  document.getElementById('user-display-name').textContent=n+'.';
+  const av=SESSION.name.split(' ').map(x=>x[0]).join('').slice(0,2);
+  document.getElementById('user-av').textContent=av;
+  updatePlanUI();
+  goTo('scr-user');
+  showPanel('tools');
+}
+
+function loadAdminDash(){
+  goTo('scr-admin');
+  showAPanel('overview');
+  setTimeout(buildCharts,100);
+}
+
+function updatePlanUI(){
+  if(!SESSION)return;
+  const planLabels={free:'FREE PLAN',starter:'STARTER PLAN',pro:'PRO PLAN',premium:'PREMIUM'};
+  const planDescs={free:'2 prompts per day',starter:'5 lifetime prompts',pro:'100 prompts per day',premium:'Unlimited'};
+  document.getElementById('sb-plan-name').textContent=planLabels[SESSION.plan]||'FREE PLAN';
+  document.getElementById('sb-plan-desc').textContent=planDescs[SESSION.plan]||'';
+  const used=SESSION.prompts_max-SESSION.prompts_left;
+  const pct=SESSION.prompts_max>0?Math.min(100,Math.round(used/SESSION.prompts_max*100)):0;
+  document.getElementById('sb-prog').style.width=pct+'%';
+  document.getElementById('sb-used').textContent=used+' used today';
+  document.getElementById('m-today').textContent=used;
+  document.getElementById('m-left').textContent=SESSION.prompts_left;
+  document.getElementById('m-left-sub').textContent='of '+SESSION.prompts_max+(SESSION.plan==='starter'?' total':' today');
+  document.getElementById('m-plan').textContent=SESSION.plan.charAt(0).toUpperCase()+SESSION.plan.slice(1);
+}
+
+async function doForgot(){
+  const email=document.getElementById('fo-email').value.trim();
+  const el=document.getElementById('forgot-alert');
+  if(!email){el.innerHTML='<div class="alert alert-err">Enter your email address.</div>';return;}
+  el.innerHTML='<div class="alert alert-warn">Sending...</div>';
+  await new Promise(r=>setTimeout(r,1200));
+  el.innerHTML='<div class="alert alert-ok">Reset link sent to '+email+'! Check your inbox.</div>';
+}
+
+function selTool(tool,emoji,name,el){
   curTool=tool;
-  document.querySelectorAll('.tcard').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.tool-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
-  document.getElementById('tool-emoji').textContent=emoji;
-  document.getElementById('tool-name').textContent=name+' Generator';
-  document.getElementById('output-box').classList.remove('vis');
-  document.getElementById('out-actions').style.display='none';
-  document.getElementById('niche-group').style.display=tool==='hashtag'?'block':'none';
-  document.getElementById('gmb-group').style.display=tool==='gmb'?'block':'none';
-  document.getElementById('audience-group').style.display=tool==='hashtag'?'none':'block';
+  document.getElementById('cur-tool-e').textContent=emoji;
+  document.getElementById('cur-tool-name').textContent=name+' Generator';
+  document.getElementById('hash-niche-wrap').style.display=tool==='hash'?'block':'none';
+  document.getElementById('gmb-loc-wrap').style.display=tool==='gmb'?'block':'none';
+  document.getElementById('output-area').classList.remove('vis');
+  document.getElementById('out-acts').style.display='none';
+  if(tool==='sms'&&SESSION&&SESSION.plan==='free'||tool==='sms'&&SESSION&&SESSION.plan==='starter'){
+    showToast('SMS Campaign requires Pro or Premium plan. Upgrade in Billing.');
+  }
 }
 
-function setTone(el,tone){
-  curTone=tone;
-  document.querySelectorAll('.tone-row .tchip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
+function setChip(el,type,val,grp){
+  const row=el.parentElement;
+  row.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  if(type==='tone') curTone=val;
+  if(type==='lang') curLang=val;
 }
 
-function setLang(el,lang){
-  curLang=lang;
-  document.querySelectorAll('.lang-row .tchip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-}
+const OUTS={
+  wa:{professional:`👋 Hello valued customer,\n\nWe're excited to share that we currently have in stock what you've been looking for.\n\n✅ Quality verified\n✅ 3-month warranty\n✅ M-Pesa accepted\n✅ Same-day Nairobi delivery\n\nReply "ORDER" now to reserve your unit before stock runs out.\n\n— Wanjiku Electronics | Trusted by 300+ Nairobi customers 📱`,
+    persuasive:`🔥 While you're reading this, 2 other people are already placing their orders.\n\nDon't be the one who missed out and paid double next week.\n\n📦 Ready to ship TODAY\n💳 M-Pesa accepted\n🚀 Nairobi delivery — same day\n\nReply "MINE" right now and we'll sort you out immediately. ⚡`,
+    funny:`Okay so picture this... 😂\n\nYou're scrolling, minding your business, when THIS shows up.\n\n"Is this real?" YES.\n"Good condition?" EXTREMELY.\n"Should I order now?"\n\n*reader, they ordered*\n\nDM before someone else does 🏃💨`,
+    urgent:`⚠️ LAST UNIT REMAINING ⚠️\n\nThis is not a drill. We had 5 this morning. We have 1 left right now.\n\n⏰ Offer closes TONIGHT at midnight\n📲 WhatsApp: 0725 028 310\n\nDon't think. Act now.`},
+  ig:{professional:`Fresh stock just dropped. ✨\n\nQuality you can see — price that makes sense. We source only the best for Nairobi buyers who know the difference.\n\n📦 Order today — delivered same day within Nairobi\n💳 M-Pesa accepted\n⭐ 300+ happy customers\n\nDM "ORDER" or tap the link in bio.\n\n#NairobiTech #DealsKenya #KenyaShopping`,
+    swahili:`Habari ya leo! 👋✨\n\nBidhaa mpya imewadia — ubora wa juu, bei ya chini!\n\n📦 Order leo, delivery same day Nairobi\n💳 Tunapokea M-Pesa\n⭐ Wateja 300+ wanafurahi\n\nDM "NATAKA" au bonyeza link bio 👆\n\n#NairobiDeals #BiasharaKenya #MitubaKE`},
+  hash:{fashion:`Kenyan Fashion Hashtags 🇰🇪\n\nHigh Volume (100K+ posts):\n#KenyaFashion #NairobiStyle #NairobiMitumba #AffordableFashionKE\n\nMid Volume (10K–100K):\n#MitubaKE #GikombaDeals #TrendyKE #StyleNairobi\n\nLocal/Niche (under 10K — best for discovery):\n#FashionKenya #NairobiFashionista #MitumbaFinds #BudgetFashionKE\n\n💡 Mix all 3 tiers. Use 7–9 hashtags per post.`,
+    electronics:`Kenyan Electronics Hashtags 🇰🇪\n\nHigh Volume:\n#NairobiTech #PhonesKenya #DealsKenya #ElectronicsNairobi\n\nMid Volume:\n#GadgetsKE #TechDealsNairobi #KenyaSmartphones #LaptopsKenya\n\nLocal/Niche:\n#iPhone14Kenya #AffordableTechKE #NairobiCBDTech #PhoneRepairNairobi\n\n💡 Mix all 3 tiers. Use 7–9 hashtags per post.`,
+    beauty:`Kenyan Beauty Hashtags 🇰🇪\n\nHigh Volume:\n#NairobiBeauty #KenyaSalon #HairNairobi #BeautyKE\n\nMid Volume:\n#SkinCareKenya #NailsNairobi #MakeupKE #SalonNairobi\n\nLocal/Niche:\n#BeautyTipsKenya #GlowKE #NairobiGlow #WestlandsSalon\n\n💡 Mix all 3 tiers for maximum reach.`,
+    food:`Kenyan Food Hashtags 🇰🇪\n\nHigh Volume:\n#NairobiFood #KenyaEats #FoodDealsKenya #NairobiFoodie\n\nMid Volume:\n#KenyanFood #NairobiRestaurant #FoodKE #EatNairobi\n\nLocal/Niche:\n#LocalFoodKenya #NairobishFood #FoodNairobi #KenyanCuisine`,
+    general:`Kenya General Business Hashtags 🇰🇪\n\nHigh Volume:\n#KenyaBusiness #NairobiShopping #BiasharaKenya #SMEKenya\n\nMid Volume:\n#KenyanSME #NairobiDeals #ShopKenya #BusinessNairobi\n\nLocal/Niche:\n#DealsKenya #SupportLocalKE #NairobiMarket #KenyaEntrepreneur`},
+  gmb:{professional:`📍 GOOGLE MY BUSINESS POST — Local SEO Optimized\n\nHEADLINE:\n"Best Electronics Shop in Nairobi CBD — Wanjiku Electronics"\n\nDESCRIPTION:\nLooking for quality phones, laptops, and gadgets in Nairobi CBD? Wanjiku Electronics has been serving Nairobi residents for 5+ years with verified products, competitive prices, and a 3-month warranty on every device.\n\nServices: Phone sales · Laptop repairs · Accessories · Trade-ins\n📞 Call/WhatsApp: 0712345678 | Open Mon–Sat 8AM–7PM\n\nLOCAL KEYWORDS: "electronics shop Nairobi CBD", "buy iPhone Nairobi", "phone repair near me"\n\nHASHTAGS: #NairobiCBD #ElectronicsNairobi #NairobiTech`},
+  offer:{persuasive:`🎉 WEEKEND FLASH SALE — ENDS SUNDAY MIDNIGHT\n\n❌ Normal Price: KSh 95,000\n✅ Sale Price: KSh 85,000 (Save KSh 10,000!)\n\nThis is a REAL sale. Not a "sale" that runs for 6 months.\n\nOnly 3 units at this price:\n→ First-come, first-served\n→ Offer closes Sunday 11:59 PM\n→ No extensions. No exceptions.\n\nHow to claim:\n1️⃣ Reply "WEEKEND" on WhatsApp\n2️⃣ We confirm your unit\n3️⃣ Pay via M-Pesa, receive same day\n\n📲 0725 028 310 | Nairobi CBD`},
+  prod:{professional:`[PRODUCT NAME]\n\nStop settling for second-best.\n\nThis product delivers [primary benefit] — designed for [target user] who needs [outcome] without compromising on quality or paying agency prices.\n\nWhat's included:\n• [Specific feature & benefit 1]\n• [Specific feature & benefit 2]\n• [Specific feature & benefit 3]\n• 3-month warranty\n• M-Pesa payment accepted\n\nPrice: KSh 85,000\n📦 Nairobi delivery: Same day\n📞 WhatsApp: 0725 028 310`},
+  bio:{professional:`📱 Wanjiku Electronics | Nairobi Kenya\n\nYour trusted electronics partner in Nairobi — verified products, fair prices, and service that keeps customers coming back.\n\n✅ Phones, Laptops & Accessories\n✅ 3-month warranty on all devices\n✅ M-Pesa accepted\n✅ Same-day Nairobi delivery\n✅ 300+ happy customers\n\n📍 Ronald Ngala St, Nairobi CBD\n⏰ Mon–Sat, 8AM–7PM\n📞 WhatsApp: 0725 028 310`},
+  rw:{professional:`✨ CONTENT REWRITE COMPLETE\n\nYour original content has been rewritten with:\n→ Stronger opening hook (first 3 words decide if they read on)\n→ Added social proof element\n→ Clearer CTA with one specific action\n→ Urgency language without feeling spammy\n→ Mobile-optimized short paragraphs\n\n[Your rewritten content would appear here based on the input you provided. Paste your old caption above and click Generate to see the result.]\n\nReadability improvement: ↑ 40%`},
+  sms:{professional:`TALIM AI: [Business] — [Product] now at KSh 85K! Original+warranty. 3 left. WhatsApp 0725028310. Offer ends Sunday. STOP to opt out.\n\n[118 / 160 characters — fits in 1 SMS ✓]\n\nSchedule suggestion:\n• Thursday 7PM — pre-weekend anticipation\n• Saturday 10AM — peak shopping day\n• Sunday 4PM — urgency/last chance`}
+};
 
 async function doGenerate(){
-  const product = document.getElementById('inp-product').value.trim();
-  if(!product && curTool!=='hashtag' && curTool!=='trends'){
-    document.getElementById('inp-product').style.borderColor='var(--red)';
-    setTimeout(()=>document.getElementById('inp-product').style.borderColor='',2000);
-    return;
+  if(!SESSION){showToast('Please log in to generate content.');return;}
+  const prod=document.getElementById('inp-prod').value.trim();
+  if(!prod&&curTool!=='hash'&&curTool!=='gmb'){
+    document.getElementById('inp-prod').classList.add('inp-err');
+    setTimeout(()=>document.getElementById('inp-prod').classList.remove('inp-err'),2000);
+    showToast('Please describe what you are selling.');return;
   }
-  const btn = document.getElementById('gen-btn');
-  const spin = document.getElementById('gen-spin');
-  const box = document.getElementById('output-box');
-  const acts = document.getElementById('out-actions');
-  
-  btn.disabled=true; spin.style.display='block'; spin.style.animation='spin .6s linear infinite';
-  box.classList.remove('vis'); acts.style.display='none';
-  
-  await new Promise(r=>setTimeout(r,1000+Math.random()*700));
-  
+  if(SESSION.prompts_left<=0){
+    showToast('No prompts remaining! Upgrade your plan in Billing.');
+    showPanel('billing');return;
+  }
+  const btn=document.getElementById('gen-btn');
+  const spin=document.getElementById('gen-spin');
+  const area=document.getElementById('output-area');
+  const acts=document.getElementById('out-acts');
+  btn.disabled=true;spin.style.display='block';spin.style.animation='spin .6s linear infinite';
+  area.classList.remove('vis');acts.style.display='none';
+  await new Promise(r=>setTimeout(r,900+Math.random()*600));
   let out='';
-  if(curTool==='hashtag'){
-    const niche = document.getElementById('inp-niche').value;
-    const tags = HASHTAGS[niche]||HASHTAGS.general;
-    out=`Top ${niche.charAt(0).toUpperCase()+niche.slice(1)} Hashtags for Kenya 🇰🇪\n\nHigh Volume:\n${tags.slice(0,4).join(' ')}\n\nMid Volume:\n${tags.slice(4,8).join(' ')}\n\nLocal/Niche:\n${tags.slice(8).join(' ')}\n\n💡 Mix all tiers. Use 7–9 hashtags per Instagram post for best results.`;
-  } else if(curTool==='instagram' && curLang==='swahili'){
-    out=OUTPUTS.instagram.swahili;
-  } else {
-    const toolOuts = OUTPUTS[curTool];
-    if(typeof toolOuts==='object'&&toolOuts[curTone]) out=toolOuts[curTone];
-    else if(typeof toolOuts==='string') out=toolOuts;
-    else out=OUTPUTS.whatsapp[curTone]||OUTPUTS.whatsapp.professional;
-  }
-  
-  box.textContent=out; box.classList.add('vis'); acts.style.display='flex';
-  btn.disabled=false; spin.style.display='none';
+  const niche=document.getElementById('inp-niche')?.value||'general';
+  if(curTool==='hash') out=OUTS.hash[niche]||OUTS.hash.general;
+  else if(curTool==='ig'&&curLang==='sw') out=OUTS.ig.swahili;
+  else if(curTool==='gmb') out=OUTS.gmb.professional;
+  else{const t=OUTS[curTool];out=typeof t==='object'?(t[curTone]||t.professional):t||OUTS.wa.professional;}
+  area.textContent=out;area.classList.add('vis');acts.style.display='flex';
+  SESSION.prompts_left=Math.max(0,SESSION.prompts_left-1);
+  updatePlanUI();
+  btn.disabled=false;spin.style.display='none';
+  showToast('Content generated! 1 prompt used.');
 }
 
 function copyOut(){
-  const txt = document.getElementById('output-box').textContent;
-  navigator.clipboard.writeText(txt).catch(()=>{});
-  const msg = document.getElementById('copied-msg');
-  msg.style.display='flex';
-  setTimeout(()=>msg.style.display='none',2200);
+  const t=document.getElementById('output-area').textContent;
+  navigator.clipboard.writeText(t).catch(()=>{});
+  document.getElementById('copy-confirm').style.display='block';
+  setTimeout(()=>document.getElementById('copy-confirm').style.display='none',2000);
 }
+function clearOut(){document.getElementById('output-area').classList.remove('vis');document.getElementById('out-acts').style.display='none';}
+function saveOut(){showToast('Saved to your history!');}
+function copyText(btn){showToast('Copied to clipboard!');}
 
-function clearOut(){
-  document.getElementById('output-box').classList.remove('vis');
-  document.getElementById('out-actions').style.display='none';
-}
-
-function saveToHistory(){
-  const btn = event.target;
-  btn.textContent='✓ Saved!';
-  btn.style.color='var(--teal)';
-  setTimeout(()=>{btn.textContent='💾 Save';btn.style.color=''},1500);
-}
-
-function showMpesa(plan,amount){
-  document.getElementById('mpesa-title').textContent='Pay via M-Pesa STK Push';
-  document.getElementById('mpesa-desc').textContent=`Plan: ${plan} — KSh ${parseInt(amount||0).toLocaleString()}${amount==='199'?' one-time':'/month'}`;
-  document.getElementById('mpesa-overlay').classList.add('show');
-  document.getElementById('pay-status').className='pay-status';
+function openMpesa(plan,amt,freq){
+  mpesaPlan=plan;mpesaAmt=amt;mpesaFreq=freq;
+  document.getElementById('mpesa-modal-title').textContent='Pay via M-Pesa STK Push';
+  document.getElementById('mpesa-modal-sub').textContent='Plan: '+plan+' — KSh '+parseInt(amt).toLocaleString()+' '+freq;
+  document.getElementById('mpesa-amount-show').value='KSh '+parseInt(amt).toLocaleString();
   document.getElementById('mpesa-phone').value='';
+  document.getElementById('pay-status').className='pay-status';
+  document.getElementById('mpesa-overlay').classList.add('show');
 }
-
-function closeMpesa(){
-  document.getElementById('mpesa-overlay').classList.remove('show');
-}
+function closeMpesa(){document.getElementById('mpesa-overlay').classList.remove('show');}
 
 async function processMpesa(){
-  const phone = document.getElementById('mpesa-phone').value.trim();
-  if(!phone || phone.length<9){
-    document.getElementById('mpesa-phone').style.borderColor='var(--red)';
-    setTimeout(()=>document.getElementById('mpesa-phone').style.borderColor='',1500);
+  const phone=document.getElementById('mpesa-phone').value.trim();
+  if(!phone||phone.length<9){
+    document.getElementById('mpesa-phone').classList.add('inp-err');
+    setTimeout(()=>document.getElementById('mpesa-phone').classList.remove('inp-err'),1500);
     return;
   }
-  const btn = document.getElementById('mpesa-pay-btn');
-  const spin = document.getElementById('mpesa-spin');
-  const status = document.getElementById('pay-status');
-  
-  btn.disabled=true; spin.style.display='block'; spin.style.animation='spin .6s linear infinite';
-  status.className='pay-status sending'; status.textContent='⏳ Sending STK push to '+phone+'...';
-  
+  const btn=document.getElementById('mpesa-pay-btn');
+  const spin=document.getElementById('mpesa-spin');
+  const st=document.getElementById('pay-status');
+  btn.disabled=true;spin.style.display='block';spin.style.animation='spin .6s linear infinite';
+  st.className='pay-status pay-pending';st.textContent='Sending STK push to '+phone+'...';
   await new Promise(r=>setTimeout(r,2500));
-  spin.style.display='none'; btn.disabled=false;
-  
-  // Simulate 90% success rate for demo
-  if(Math.random()>0.1){
-    status.className='pay-status success';
-    status.textContent='✅ Payment successful! Your plan is now active. Check your M-Pesa for confirmation.';
-    setTimeout(()=>closeMpesa(),4000);
+  spin.style.display='none';btn.disabled=false;
+  if(Math.random()>0.08){
+    st.className='pay-status pay-ok';
+    st.innerHTML='✓ Payment successful! Your '+mpesaPlan+' plan is now active. Receipt sent to your email.';
+    if(SESSION){
+      const planMap={Starter:{plan:'starter',pl:5,pm:5},Pro:{plan:'pro',pl:100,pm:100},Premium:{plan:'premium',pl:9999,pm:9999}};
+      const p=planMap[mpesaPlan];
+      if(p){SESSION.plan=p.plan;SESSION.prompts_left=p.pl;SESSION.prompts_max=p.pm;updatePlanUI();}
+    }
+    setTimeout(()=>closeMpesa(),3500);
   } else {
-    status.className='pay-status fail';
-    status.innerHTML='❌ Payment failed. Please check your M-Pesa balance and try again. Or call <strong>0725 028 310</strong>.';
+    st.className='pay-status pay-fail';
+    st.innerHTML='✗ Payment failed. Check M-Pesa balance and try again, or WhatsApp <strong>0725 028 310</strong> for help.';
   }
 }
 
-function openWA(){
-  window.open('https://wa.me/254725028310?text=Hi%20Talim%20AI%2C%20I%20need%20help%20with%20my%20marketing%20services','_blank');
+function applyCoupon(){
+  const v=document.getElementById('coupon-inp').value.trim().toUpperCase();
+  const el=document.getElementById('coupon-msg');
+  const codes={TALIM20:'20% discount applied — KSh 640 for Pro!',WELCOME:'Free 5 bonus prompts added to your account!',KENYA50:'KSh 50 off your next payment!'};
+  if(codes[v]){el.style.display='block';el.style.color='var(--green)';el.textContent='✓ '+codes[v];}
+  else{el.style.display='block';el.style.color='var(--red)';el.textContent='Invalid coupon code. Try TALIM20 or WELCOME.';}
 }
 
-function submitQuote(){
-  const btn=event.target;
-  btn.disabled=true; btn.textContent='Sending...';
-  setTimeout(()=>{
-    document.getElementById('quote-msg').style.display='block';
-    btn.textContent='Quote Sent ✓'; btn.style.background='var(--green)'; btn.style.color='#000';
-  },1200);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.style.display='none',3000);
 }
 
-function buildAdminCharts(){
-  const tc=document.getElementById('ac-tools');
-  if(!tc||tc.dataset.b) return; tc.dataset.b='1';
-  [['WhatsApp Message',38,'#00BFA6'],['Instagram Caption',25,'#5B9CF6'],['GMB Post',16,'#22C78A'],['Hashtag Gen',12,'#FFB84D'],['Facebook Ad',9,'#9B7FF4']].forEach(([l,p,c])=>{
-    tc.innerHTML+=`<div style="margin-bottom:.6rem"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:.25rem;color:var(--text2)"><span>${l}</span><span style="color:var(--text);font-weight:600">${p}%</span></div><div style="background:var(--bg4);border-radius:999px;height:5px;overflow:hidden"><div style="width:${p}%;height:100%;background:${c};border-radius:999px"></div></div></div>`;
-  });
-  const rc=document.getElementById('ac-rev');
-  if(!rc||rc.dataset.b) return; rc.dataset.b='1';
-  [['Starter (199)',['t','KSh 11,542']],['Pro (800)',['t','KSh 16,800']],['Unlimited (1500)',['a','KSh 12,000']],['Agency (3500)',['p','KSh 7,000']]].forEach(([l,[cl,v]])=>{
-    const pct=parseInt(v.replace(/\D/g,''))/18000*100;
-    rc.innerHTML+=`<div style="margin-bottom:.6rem"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:.25rem;color:var(--text2)"><span>${l}</span><span style="color:var(--teal);font-weight:600">${v}</span></div><div style="background:var(--bg4);border-radius:999px;height:5px;overflow:hidden"><div style="width:${Math.round(pct)}%;height:100%;background:var(--teal);border-radius:999px"></div></div></div>`;
-  });
+function openWA(){window.open('https://wa.me/254725028310?text=Hi%20Talim%20AI!','_blank');}
+
+function buildCharts(){
+  const rc=document.getElementById('rev-chart');
+  if(rc&&!rc.dataset.b){rc.dataset.b='1';
+    [['Starter',9],['Pro',38],['Premium',49],['Free',4]].forEach(([l,p])=>{
+      const c=l==='Premium'?'#7C3AED':l==='Pro'?'#00BFA6':l==='Free'?'#CBD5E0':'#00967F';
+      rc.innerHTML+=`<div style="margin-bottom:.6rem"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:.25rem;color:var(--text2)"><span>${l}</span><span style="font-weight:600;color:var(--text)">${p}%</span></div><div style="background:var(--bg3);border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:${c};border-radius:999px"></div></div></div>`;
+    });
+  }
+  const tc=document.getElementById('tool-chart');
+  if(tc&&!tc.dataset.b){tc.dataset.b='1';
+    [['WhatsApp Msg',38],['Instagram Cap',24],['GMB Post',18],['Hashtag Gen',12],['Facebook Ad',8]].forEach(([l,p])=>{
+      tc.innerHTML+=`<div style="margin-bottom:.6rem"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:.25rem;color:var(--text2)"><span>${l}</span><span style="font-weight:600;color:var(--text)">${p}%</span></div><div style="background:var(--bg3);border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:var(--teal);border-radius:999px"></div></div></div>`;
+    });
+  }
+}
+
+function buildUsageChart(){
+  const uc=document.getElementById('usage-chart');
+  if(uc&&!uc.dataset.b){uc.dataset.b='1';
+    [['WhatsApp Message',2218,38],['Instagram Caption',1401,24],['GMB Post Generator',1051,18],['Hashtag Generator',701,12],['Facebook Ad Copy',467,8]].forEach(([l,n,p])=>{
+      uc.innerHTML+=`<div style="margin-bottom:.75rem"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:.3rem;color:var(--text2)"><span>${l}</span><span style="font-weight:600;color:var(--text)">${n.toLocaleString()} gens (${p}%)</span></div><div style="background:var(--bg3);border-radius:999px;height:7px;overflow:hidden"><div style="width:${p}%;height:100%;background:var(--teal);border-radius:999px"></div></div></div>`;
+    });
+  }
+}
+
+function scrollTo2(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
 }
 </script>
